@@ -18,7 +18,8 @@ export default {
         light4: 'var(--neutral-light-4)',
 
         // Accent Colors
-        danger: 'var(--accent-danger)',
+        danger1: 'var(--accent-danger-1)',
+        danger2: 'var(--accent-danger-2)',
 
         // Background Colors
         bgLight: 'var(--bg-light)',

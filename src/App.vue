@@ -1,9 +1,10 @@
 <script setup>
+import Button from "./components/Button.vue";
 </script>
 
 <template>
-  <div class="bg-dark1">
-    <h1 class="text-light1">asdfadsf</h1>
+  <div class="h-screen w-screen p-40">
+    <Button danger text="New Invoice" />
   </div>
 </template>
 

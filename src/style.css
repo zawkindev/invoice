@@ -26,3 +26,8 @@
   --bg-light: #f8f8fb;
   --bg-dark: #141625;
 }
+
+*{
+  font-family: "League Spartan", sans-serif;
+  font-size: 15px;
+}
