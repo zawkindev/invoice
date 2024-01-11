@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Tailwind CSS Variables */
+
+  /* Brand Colors */
+  --brand-primary: #7c5dfa;
+  --brand-secondary: #9277ff;
+
+  /* Neutral Colors */
+  --neutral-dark-1: #1e2139;
+  --neutral-dark-2: #252945;
+  --neutral-dark-3: #373b53;
+  --neutral-light-1: #dfe3fa;
+  --neutral-light-2: #888eb0;
+  --neutral-light-3: #7e88c3;
+  --neutral-light-4: #0c0e16;
+
+  /* Accent Colors */
+  --accent-danger-1: #ec5757;
+  --accent-danger-2: #FF9797;
+
+  /* Background Colors */
+  --bg-light: #f8f8fb;
+  --bg-dark: #141625;
+}
