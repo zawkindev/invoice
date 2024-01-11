@@ -4,7 +4,7 @@ import Button from "./components/Button.vue";
 
 <template>
   <div class="h-screen w-screen p-40">
-    <Button danger text="New Invoice" />
+    <Button save-as-draft text="Save as Draft" />
   </div>
 </template>
 

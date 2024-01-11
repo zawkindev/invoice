@@ -13,6 +13,7 @@
   --neutral-dark-1: #1e2139;
   --neutral-dark-2: #252945;
   --neutral-dark-3: #373b53;
+  --neutral-light-0: #F9FAFE;
   --neutral-light-1: #dfe3fa;
   --neutral-light-2: #888eb0;
   --neutral-light-3: #7e88c3;
@@ -20,14 +21,14 @@
 
   /* Accent Colors */
   --accent-danger-1: #ec5757;
-  --accent-danger-2: #FF9797;
+  --accent-danger-2: #ff9797;
 
   /* Background Colors */
   --bg-light: #f8f8fb;
   --bg-dark: #141625;
 }
 
-*{
+* {
   font-family: "League Spartan", sans-serif;
   font-size: 15px;
 }
