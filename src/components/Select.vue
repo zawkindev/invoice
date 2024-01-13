@@ -25,12 +25,12 @@ const isOpen = ref(false);
   <button
     :class="{ 'border-light3': isOpen }"
     @click="isOpen = !isOpen"
-    class="relative min-w-56 w-fit py-4 px-5 text-left font-semibold border rounded-md shadow-sm"
+    class="relative w-72 py-4 px-5 text-left  font-semibold border rounded-md shadow-sm"
   >
     <div class="flex w-full items-center justify-between">
-      <div class="truncate">{{ selectedValue.label }}</div>
+      <div class="truncate text-xl">{{ selectedValue.label }}</div>
       <svg
-        class="ml-2 -mr-1 h-5 w-5 fill-primary"
+        class="ml-2 -mr-1 h-7 w-7 fill-primary"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill=""
@@ -50,7 +50,7 @@ const isOpen = ref(false);
         v-for="option in options"
         :key="option.value"
         @click="selectOption(option)"
-        class="cursor-pointer hover:bg-gray-100 px-5 py-4 border-b boder-b-light1"
+        class="cursor-pointer text-xl px-5 py-4 border-b boder-b-light1 hover:bg-gray-100 "
       >
         {{ option.label }}
       </div>

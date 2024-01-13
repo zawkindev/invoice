@@ -15,7 +15,7 @@ const inputValue = ref("fa");
     <input
       :id="id"
       v-model="inputValue"
-      class="w-fit py-3 px-5 border border-light1 rounded font-semibold text-xl focus:border-secondary focus:outline-none"
+      class="w-72 py-3 px-5 border border-light1 rounded font-semibold text-xl focus:border-secondary focus:outline-none"
       type="text"
       placeholder="asfasf"
     />

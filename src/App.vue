@@ -2,6 +2,7 @@
 import Button from "./components/Button.vue";
 import Input from "./components/Input.vue";
 import Select from "./components/Select.vue";
+import DatePicker from "./components/DatePicker.vue";
 </script>
 
 <template>
@@ -9,5 +10,6 @@ import Select from "./components/Select.vue";
     <Button save-as-draft text="Save as Draft" />
     <Input label="Street Address" />
     <Select />
+    <DatePicker />
   </div>
 </template>
