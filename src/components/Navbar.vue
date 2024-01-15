@@ -1,5 +1,10 @@
 <script setup>
 import { ref } from "vue";
+
+const props = defineProps(["isDarkTheme"])
+
+console.log(props.isDarkTheme)
+
 const isOpen = ref(false);
 const toggleSidebar = () => {
   isOpen.value = !isOpen.value;
@@ -14,8 +19,10 @@ const toggleSidebar = () => {
     >
       <img alt="icon" src="../assets/icon.svg" @click="toggleSidebar()" />
       <div class="flex flex-col gap-8 items-center">
-        <img class="h-4 w-3" alt="theme icon" src="../assets/sun.svg" />
-        <div class="p-8 border-t border-[#494E6E]">
+        <img v-if="props.isDarkTheme" @click="$emit('toggleTheme')" class="h-4 w-3" alt="theme icon" src="../assets/sun.svg" />
+        <img v-else @click="$emit('toggleTheme')" class="h-4 w-3" alt="theme icon" src="../assets/moon.svg" />
+
+        <div class="p-8 border-t borde4E6E]">
           <img
             class="w-full h-full rounded-full"
             alt="profile photo"

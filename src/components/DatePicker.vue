@@ -117,7 +117,7 @@ onMounted(() => {
             width="11"
             height="16"
             viewBox="0 0 6 11"
-            fill="none"
+            fill="#7C5DFA"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
