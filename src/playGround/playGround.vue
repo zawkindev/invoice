@@ -6,7 +6,7 @@ import DatePicker from "../components/DatePicker.vue";
 </script>
 
 <template>
-  <div class="flex flex-col gap-10 h-screen w-screen p-40 dark:bg-[#141625]">
+  <div id="playGround" class="flex flex-col pl-96 gap-10 h-full w-full dark:bg-[#141625]">
     <Button primary has-icon text="Save as Draft" />
     <Input label="Street Address" />
     <Select />
