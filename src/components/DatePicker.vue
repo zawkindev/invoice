@@ -64,7 +64,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-72 relative date-picker p-4 border rounded-md">
+  <div class="w-72 relative date-picker p-4 border rounded-md   dark:bg-dark1 dark:border-dark2 dark:text-white ">
     <div
       class="flex flex-row justify-between items-center selected-date text-xl font-semibold"
     >
@@ -91,7 +91,7 @@ onMounted(() => {
     <div
       v-show="isOpen"
       @focus="console.log('fadsff')"
-      class="absolute left-0 z-10 mt-8 p-4 w-full bg-white shadow-2xl rounded-md overflow-auto"
+      class="absolute left-0 z-10 mt-8 p-4 w-full bg-white shadow-2xl rounded-md overflow-auto   dark:bg-dark1 dark:border-dark2 dark:text-white "
     >
       <div class="calendar flex items-center justify-between">
         <button @click="prevMonth">
@@ -137,7 +137,7 @@ onMounted(() => {
           class="day flex items-center justify-center text-lg font-semibold cursor-pointer"
         >
           {{ day }}
-        </div>
+      </div>
       </div>
     </div>
   </div>
