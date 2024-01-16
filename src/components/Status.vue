@@ -5,9 +5,9 @@ const props = defineProps({
 
 function getClasses() {
   return {
-    "bg-[#33D69F] text-[#33D69F]": props.status === "paid",
+    "bg-[#33D69F] fill-[#33D69F] text-[#33D69F]": props.status === "paid",
     "bg-[#FF8F00] fill-[#FF8F00] text-[#FF8F00]": props.status === "pending",
-    "bg-white fill-white text-white dark:bg-dark3 dark:fill-dark3 dark:text-dark3":
+    "bg-light1 fill-dark3 text-dark3 dark:bg-dark3 dark:fill-light1 dark:text-light1":
       props.status === "draft",
   };
 }
@@ -16,7 +16,7 @@ function getClasses() {
 <template>
   <div
     :class="getClasses()"
-    class="flex flex-row w-fit font-bold items-center gap-2 px-8 py-3 rounded-md bg-opacity-10"
+    class="flex flex-row w-40 font-bold items-center justify-center gap-2 py-3 rounded-md bg-opacity-10"
   >
     <svg
       class="h-4 w-4"
