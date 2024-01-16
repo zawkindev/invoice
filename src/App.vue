@@ -15,7 +15,6 @@ const data = ref([
 
 
 const isDarkTheme = ref(false);
-const invoiceCount = ref(0);
 
 function toggleTheme() {
   isDarkTheme.value = !isDarkTheme.value;
@@ -29,7 +28,6 @@ function toggleTheme() {
     >
       <HomeScreen
         :is-dark-theme="isDarkTheme"
-        :invoice-count="invoiceCount"
         :toggle-theme="toggleTheme"
         :data="data"
       />
