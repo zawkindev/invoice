@@ -21,7 +21,7 @@ function navigateTo() {
 }
 
 function formattedDate() {
-  const dateObject = new Date(invoice.date);
+  const dateObject = new Date(invoice.value.date);
   const day = dateObject.getDate();
   const month = dateObject.toLocaleString("default", { month: "long" });
   const year = dateObject.getFullYear();

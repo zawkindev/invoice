@@ -14,8 +14,6 @@ const data = ref([
   },
 ]);
 
-
-
 const invoiceCount = ref(data.value.length);
 </script>
 

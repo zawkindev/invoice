@@ -4,7 +4,6 @@ import { ref } from "vue";
 const props = defineProps(["isDarkTheme"]);
 const emit = defineEmits(["toggleTheme"]);
 
-
 const isOpen = ref(false);
 const toggleSidebar = () => {
   isOpen.value = !isOpen.value;

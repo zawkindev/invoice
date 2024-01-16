@@ -7,8 +7,6 @@ const isDarkTheme = ref(false);
 function toggleTheme() {
   isDarkTheme.value = !isDarkTheme.value;
 }
-
-
 </script>
 
 <template>

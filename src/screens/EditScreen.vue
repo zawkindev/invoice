@@ -1,8 +1,7 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-import Invoice from '../components/Invoice.vue';
-import { useRouter } from 'vue-router';
-
+import { onMounted, ref } from "vue";
+import Invoice from "../components/Invoice.vue";
+import { useRouter } from "vue-router";
 
 const data = ref([
   {
@@ -14,20 +13,18 @@ const data = ref([
   },
 ]);
 
-
-
-const invoiceID = ref('')
-const invoice = ref('')
-const router = useRouter()
+const invoiceID = ref("");
+const invoice = ref("");
+const router = useRouter();
 
 function goBack() {
   window.history.back();
 }
 
-onMounted(()=>{
-  invoiceID.value = router.currentRoute.value.params.id
-  invoice.value = data.value.find(el=>el.id===invoiceID.value)
-})
+onMounted(() => {
+  invoiceID.value = router.currentRoute.value.params.id;
+  invoice.value = data.value.find((el) => el.id === invoiceID.value);
+});
 </script>
 
 <template>
