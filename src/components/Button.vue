@@ -26,7 +26,7 @@ const getButtonClass = () => {
 <template>
   <button
     :class="getButtonClass()"
-    class="flex w-fit text-xl flex-row gap-3 justify-center items-center font-semibold rounded-full"
+    class="flex w-full h-fit text-xl flex-row gap-3 justify-center items-center font-semibold rounded-full"
   >
     <img
       v-if="props.hasIcon"
