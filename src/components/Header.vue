@@ -18,7 +18,6 @@ const props = defineProps({
       <p v-else class="text-xl text-[#888EB0]">No invoices</p>
     </div>
     <div class="flex flex-row h-fit items-center">
-
       <FilterDropdown />
 
       <Button has-icon primary text="New Invoice" />

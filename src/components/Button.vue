@@ -14,7 +14,8 @@ const getButtonClass = () => {
     "bg-primary text-white hover:opacity-70": props.primary,
     "bg-light0 px-8 text-light3 hover:bg-light1 dark:bg-dark2 dark:text-white dark:hover:text-gray-400 dark:hover:bg-light1 dark:hover:opacity-40 ":
       props.edit,
-    "bg-dark3 text-light2 hover:bg-light4 dark:hover:bg-dark1": props.saveAsDraft,
+    "bg-dark3 text-light2 hover:bg-light4 dark:hover:bg-dark1":
+      props.saveAsDraft,
     "bg-danger1 text-white hover:bg-danger2": props.danger,
     "py-4 px-5": !props.hasIcon,
     "p-3 pr-5": props.hasIcon,

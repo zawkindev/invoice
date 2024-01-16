@@ -30,7 +30,7 @@ function toggle(option) {
       <img
         alt="dropwon icon"
         src="../assets/arrow-up.svg"
-        :class="{'rotate-180':isOpen}"
+        :class="{ 'rotate-180': isOpen }"
         class="w-4 h-2 transition-all duration-300"
       />
     </div>
@@ -46,7 +46,10 @@ function toggle(option) {
           class="flex flex-row items-center gap-4 hover:cursor-pointer"
         >
           <div
-            :class="{ 'border-primary bg-primary dark:border-primary dark:bg-primary': option.isChecked }"
+            :class="{
+              'border-primary bg-primary dark:border-primary dark:bg-primary':
+                option.isChecked,
+            }"
             class="h-5 w-5 bg-light1 border-2 border-transparent rounded hover:border-primary dark:bg-dark1"
           >
             <img

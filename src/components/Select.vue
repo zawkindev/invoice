@@ -25,10 +25,16 @@ const isOpen = ref(false);
   <button
     :class="{ 'border-light3': isOpen }"
     @click="isOpen = !isOpen"
-    class="relative w-72 py-4 px-5 text-left  font-semibold border rounded-md shadow-sm  dark:bg-dark1 dark:border-dark2 dark:text-white"
+    class="relative w-72 py-4 px-5 text-left font-semibold border rounded-md shadow-sm dark:bg-dark1 dark:border-dark2 dark:text-white"
   >
-    <div class="flex w-full items-center justify-between   dark:bg-dark1 dark:border-dark2 dark:text-white">
-      <div class="truncate text-xl   dark:bg-dark1 dark:border-dark2 dark:text-white">{{ selectedValue.label }}</div>
+    <div
+      class="flex w-full items-center justify-between dark:bg-dark1 dark:border-dark2 dark:text-white"
+    >
+      <div
+        class="truncate text-xl dark:bg-dark1 dark:border-dark2 dark:text-white"
+      >
+        {{ selectedValue.label }}
+      </div>
       <svg
         class="ml-2 -mr-1 h-7 w-7 fill-primary"
         xmlns="http://www.w3.org/2000/svg"
@@ -44,13 +50,13 @@ const isOpen = ref(false);
     </div>
     <div
       v-show="isOpen"
-      class="absolute left-0 z-10 mt-8 w-full bg-white shadow-2xl rounded-lg ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none   dark:bg-dark1 dark:border-dark2 dark:text-white "
+      class="absolute left-0 z-10 mt-8 w-full bg-white shadow-2xl rounded-lg ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none dark:bg-dark1 dark:border-dark2 dark:text-white"
     >
       <div
         v-for="option in options"
         :key="option.value"
         @click="selectOption(option)"
-        class="cursor-pointer text-xl mb-[1px] px-5 py-4 border-b boder-b-light1 hover:bg-gray-100   dark:bg-dark2 dark:border-dark1 dark:hover:bg-dark1 dark:text-white "
+        class="cursor-pointer text-xl mb-[1px] px-5 py-4 border-b boder-b-light1 hover:bg-gray-100 dark:bg-dark2 dark:border-dark1 dark:hover:bg-dark1 dark:text-white"
       >
         {{ option.label }}
       </div>

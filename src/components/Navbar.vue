@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from "vue";
 
-const props = defineProps(["isDarkTheme"])
-const emit = defineEmits(['toggleTheme'])
+const props = defineProps(["isDarkTheme"]);
+const emit = defineEmits(["toggleTheme"]);
 
-console.log(props.isDarkTheme)
+console.log(props.isDarkTheme);
 
 const isOpen = ref(false);
 const toggleSidebar = () => {
@@ -20,8 +20,20 @@ const toggleSidebar = () => {
     >
       <img alt="icon" src="../assets/icon.svg" @click="toggleSidebar()" />
       <div class="flex flex-col gap-8 items-center">
-        <img v-if="props.isDarkTheme" @click="$emit('toggleTheme')" class="h-6 w-5" alt="theme icon" src="../assets/sun.svg" />
-        <img v-else @click="emit('toggleTheme')" class="h-6 w-5" alt="theme icon" src="../assets/moon.svg" />
+        <img
+          v-if="props.isDarkTheme"
+          @click="$emit('toggleTheme')"
+          class="h-6 w-5"
+          alt="theme icon"
+          src="../assets/sun.svg"
+        />
+        <img
+          v-else
+          @click="emit('toggleTheme')"
+          class="h-6 w-5"
+          alt="theme icon"
+          src="../assets/moon.svg"
+        />
 
         <div class="p-8 border-t border-[#494E6E] rounded-br-2xl">
           <img
@@ -37,7 +49,6 @@ const toggleSidebar = () => {
     v-show="isOpen"
     class="sidebar fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
   >
-<div class="w-2/5 h-full bg-white dark:bg-bgDark rounded-r-3xl">
-    </div>
+    <div class="w-2/5 h-full bg-white dark:bg-bgDark rounded-r-3xl"></div>
   </div>
 </template>
