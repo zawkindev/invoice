@@ -2,6 +2,18 @@
 import { ref } from "vue";
 import HomeScreen from "./screens/HomeScreen.vue";
 
+const data = ref([
+  {
+    id: "XM9141",
+    date: "2006-04-22",
+    fullName: "Alex Grim",
+    money: 102.04,
+    status: "pending",
+  },
+]);
+
+
+
 const isDarkTheme = ref(false);
 const invoiceCount = ref(0);
 
@@ -19,6 +31,7 @@ function toggleTheme() {
         :is-dark-theme="isDarkTheme"
         :invoice-count="invoiceCount"
         :toggle-theme="toggleTheme"
+        :data="data"
       />
     </div>
   </div>
