@@ -4,12 +4,10 @@ import { ref } from "vue";
 const props = defineProps(["isDarkTheme"]);
 const emit = defineEmits(["toggleTheme"]);
 
-console.log(props.isDarkTheme);
 
 const isOpen = ref(false);
 const toggleSidebar = () => {
   isOpen.value = !isOpen.value;
-  console.log(isOpen.value);
 };
 </script>
 

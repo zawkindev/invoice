@@ -25,11 +25,6 @@ const monthNames = [
 
 const updateSelectedDate = (day) => {
   selectedDate.value = day;
-  // You can emit an event or perform other actions with the selected date
-  // For simplicity, we're just logging it here
-  console.log(
-    `${selectedYear.value}-${selectedMonth.value + 1}-${selectedDate.value}`,
-  );
 };
 
 const getDaysInMonth = (year, month) => {
@@ -37,8 +32,6 @@ const getDaysInMonth = (year, month) => {
   return Array.from({ length: daysInMonth }, (_, i) => i + 1);
 };
 
-console.log(getDaysInMonth("1994", "1"));
-console.log(new Date("2000", "1"));
 
 const prevMonth = () => {
   if (selectedMonth.value > 0) {
@@ -92,7 +85,6 @@ onMounted(() => {
     </div>
     <div
       v-show="isOpen"
-      @focus="console.log('fadsff')"
       class="absolute left-0 z-10 mt-8 p-4 w-full bg-white shadow-2xl rounded-md overflow-auto dark:bg-dark1 dark:border-dark2 dark:text-white"
     >
       <div class="calendar flex items-center justify-between">

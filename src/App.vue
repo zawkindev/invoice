@@ -1,24 +1,14 @@
 <script setup>
 import { ref } from "vue";
-import HomeScreen from "./screens/HomeScreen.vue";
-
-const data = ref([
-  {
-    id: "XM9141",
-    date: "2006-04-22",
-    fullName: "Alex Grim",
-    money: 102.04,
-    status: "pending",
-  },
-]);
-
-
+import Navbar from "./components/Navbar.vue";
 
 const isDarkTheme = ref(false);
 
 function toggleTheme() {
   isDarkTheme.value = !isDarkTheme.value;
 }
+
+
 </script>
 
 <template>
@@ -26,11 +16,10 @@ function toggleTheme() {
     <div
       class="flex flex-col pt-20 gap-10 h-full min-h-screen w-screen items-center bg-bgLight dark:bg-bgDark dark:text-white"
     >
-      <HomeScreen
-        :is-dark-theme="isDarkTheme"
-        :toggle-theme="toggleTheme"
-        :data="data"
-      />
+      <div class="flex flex-col items-center w-3/6 gap-20 overflow-visible">
+        <Navbar @toggle-theme="toggleTheme" :is-dark-theme="isDarkTheme" />
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>

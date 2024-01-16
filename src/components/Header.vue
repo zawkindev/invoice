@@ -11,7 +11,7 @@ const props = defineProps({
 <template>
   <div class="w-full header flex flex-row justify-between items-center">
     <div class="flex flex-col text-left">
-      <h1 class="text-5xl">Invoices</h1>
+      <h1 class="text-7xl font-bold">Invoices</h1>
       <p v-if="invoiceCount" class="text-xl text-[#888EB0]">
         There are {{ invoiceCount }} total invoices
       </p>

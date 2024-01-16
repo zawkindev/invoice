@@ -8,7 +8,6 @@ const options = ref([
   { name: "Paid", isChecked: false },
 ]);
 
-console.log(options.value);
 
 function toggleDropdown() {
   isOpen.value = !isOpen.value;
