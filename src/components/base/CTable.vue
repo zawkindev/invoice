@@ -1,8 +1,8 @@
 <script setup>
-import { getInvoiceItems } from "../../services/api"
-import { formatMoney } from "../../utils/helper"
+import { getInvoiceItems } from "../../services/api";
+import { formatMoney } from "../../utils/helper";
 const props = defineProps(["invoiceID"]);
-const invoiceItems = getInvoiceItems(props.invoiceID)
+const invoiceItems = getInvoiceItems(props.invoiceID);
 </script>
 
 <template>
@@ -21,14 +21,14 @@ const invoiceItems = getInvoiceItems(props.invoiceID)
     </div>
     <div v-for="item in invoiceItems" class="item flex flex-row w-full">
       <div class="flex flex-1">
-        <p class=" font-bold text-xl">
-          {{item.name}}
+        <p class="font-bold text-xl">
+          {{ item.name }}
         </p>
       </div>
       <div class="flex flex-row flex-1 justify-between items-center">
-        <p class=" font-bold text-xl">{{item.qty}}</p>
-        <p class=" font-bold text-xl">£ {{formatMoney(item.price)}}</p>
-        <p class=" font-bold text-xl">£ {{formatMoney(item.total)}}</p>
+        <p class="font-bold text-xl">{{ item.qty }}</p>
+        <p class="font-bold text-xl">£ {{ formatMoney(item.price) }}</p>
+        <p class="font-bold text-xl">£ {{ formatMoney(item.total) }}</p>
       </div>
     </div>
   </div>

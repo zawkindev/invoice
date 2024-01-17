@@ -1,11 +1,10 @@
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const props = defineProps(["isDarkTheme"]);
 const emit = defineEmits(["toggleTheme"]);
 
-const router = useRouter()
-
+const router = useRouter();
 
 function navigateToHome() {
   router.push({

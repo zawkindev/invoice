@@ -1,11 +1,11 @@
 <script setup>
 import { ref } from "vue";
-import { getData } from "../services/api"
+import { getData } from "../services/api";
 import NoData from "../components/layout/NoData.vue";
 import Header from "../components/layout/Header.vue";
 import WideCard from "../components/common/WideCard.vue";
 
-const data = getData()
+const data = getData();
 const WideCardCount = ref(data.length);
 </script>
 

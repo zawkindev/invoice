@@ -14,9 +14,7 @@ export function formatMoney(amount) {
     const formattedDecimalPart = decimalPart.padEnd(2, "0");
 
     return `${integerPart}.${formattedDecimalPart}`;
-
   } else {
-
     return `${amountString}.00`;
   }
 }
