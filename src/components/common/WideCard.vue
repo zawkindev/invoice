@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Badge from "./Badge.vue";
-import CButton from "../custom/CButton.vue";
+import CButton from "../base/CButton.vue";
 
 const props = defineProps({
   invoice: Object,

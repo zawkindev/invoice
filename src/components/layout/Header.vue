@@ -1,5 +1,5 @@
 <script setup>
-import CButton from "../custom/CButton.vue";
+import CButton from "../base/CButton.vue";
 import Dropdown from "../common/Dropdown.vue";
 
 const props = defineProps({

@@ -1,7 +1,7 @@
 <script setup>
-import CButton from "../components/custom/CButton.vue";
-import CInput from "../components/custom/CInput.vue";
-import CSelect from "../components/custom/CSelect.vue";
+import CButton from "../components/base/CButton.vue";
+import CInput from "../components/base/CInput.vue";
+import CSelect from "../components/base/CSelect.vue";
 import DatePicker from "../components/common/Dropdown.vue";
 </script>
 

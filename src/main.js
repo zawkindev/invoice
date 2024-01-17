@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import "./style.css";
 import App from "./App.vue";
 import HomeView from "./views/HomeView.vue";
-import EditView from "./views/EditView.vue";
+import EditView from "./components/invoice/EditView.vue";
 
 const routes = [
   { path: "/", component: HomeView },
