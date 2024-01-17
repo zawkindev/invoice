@@ -5,7 +5,11 @@ export function getData() {
 }
 
 export function getInvoice(targetID) {
-  const target = data.invoices.find(item=>item.id===targetID)
-  return target
+  const invoice = data.invoices.find(item=>item.id===targetID)
+  return invoice
 }
 
+export function getInvoiceItems(targetID){
+  const invoice = getInvoice(targetID)
+  return invoice.items
+}

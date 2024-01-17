@@ -1,21 +1,18 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { getInvoice } from "../../services/api";
+import { formatDate, formatMoney } from "../../utils/helper";
 import WideCard from "../common/WideCard.vue";
+import CTable from "../base/CTable.vue";
 
 const router = useRouter();
-const invoiceID = ref("");
-const invoice = ref("");
+const invoiceID = ref(router.currentRoute.value.params.id);
+const invoice = reactive(getInvoice(invoiceID.value));
 
 function goBack() {
   window.history.back();
 }
-
-onMounted(() => {
-  invoiceID.value = router.currentRoute.value.params.id;
-  invoice.value = getInvoice(invoiceID.value);
-});
 </script>
 
 <template>
@@ -32,23 +29,104 @@ onMounted(() => {
       <p class="font-semibold text-2xl">Go back</p>
     </div>
     <WideCard edit-page :invoice="invoice" />
-    <div class="flex flex-col w-full h-full bg-white dark:bg-dark1 p-12">
-      <div class="flex flex-row w-full justify-between">
+
+    <!--   INFO START     -->
+
+    <div
+      class="flex flex-col w-full h-full bg-white p-12 gap-10 rounded-lg dark:bg-dark1"
+    >
+      <div class="flex flex-row w-full items-center justify-between">
         <div class="flex flex-col text-left gap-3">
           <p class="text-2xl font-bold">
             <span class="text-light3 font-bold text-2xl">#</span
             >{{ invoice.id }}
           </p>
-          <p class="text-light1 text-xl">Graphic Design</p>
-        </div>
-        <div class="flex flex-col text-right gap-3">
-          <p class="text-2xl font-bold">
-            <span class="text-light3 font-bold text-2xl">#</span
-            >{{ invoice.id }}
+          <p class="text-light3 dark:text-light1 font-semibold text-lg">
+            {{ invoice.serviceType }}
           </p>
-          <p class="text-light1 text-xl">Graphic Design</p>
+        </div>
+        <div class="flex flex-col text-right gap-1">
+          <p class="text-light3 dark:text-light1 font-semibold text-lg">
+            {{ invoice.buyer.address }}
+          </p>
+          <p class="text-light3 dark:text-light1 font-semibold text-lg">
+            {{ invoice.buyer.city }}
+          </p>
+          <p class="text-light3 dark:text-light1 font-semibold text-lg">
+            {{ invoice.buyer.postalCode }}
+          </p>
+          <p class="text-light3 dark:text-light1 font-semibold text-lg">
+            {{ invoice.buyer.country }}
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-row justify-between">
+        <div class="flex flex-col justify-between">
+          <div class="flex flex-col gap-3">
+            <p class="text-light3 dark:text-light1 font-semibold text-lg">
+              Invoice Date
+            </p>
+            <p class="text-2xl font-bold invoiceDate">
+              {{ formatDate(invoice.invoiceDate) }}
+            </p>
+          </div>
+          <div class="flex flex-col gap-3">
+            <p class="text-light3 dark:text-light1 font-semibold text-lg">
+              Payment Due
+            </p>
+            <p class="text-2xl font-bold">
+              {{ formatDate(invoice.paymentDue) }}
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-col billTo gap-3">
+          <p class="text-light3 dark:text-light1 font-semibold text-lg">
+            Bill To
+          </p>
+          <div>
+            <p class="text-2xl font-bold">
+              {{ invoice.fullName }}
+            </p>
+          </div>
+          <div>
+            <p class="text-light3 dark:text-light1 font-semibold text-lg">
+              {{ invoice.seller.address }}
+            </p>
+            <p class="text-light3 dark:text-light1 font-semibold text-lg">
+              {{ invoice.seller.city }}
+            </p>
+            <p class="text-light3 dark:text-light1 font-semibold text-lg">
+              {{ invoice.seller.postalCode }}
+            </p>
+            <p class="text-light3 dark:text-light1 font-semibold text-lg">
+              {{ invoice.seller.country }}
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-col sendTo gap-3">
+          <p class="text-light3 dark:text-light1 font-semibold text-lg">
+            Send To
+          </p>
+          <p class="text-2xl font-bold">
+            {{ invoice.email }}
+          </p>
+        </div>
+      </div>
+      <div class="rounded-t-lg w-full h-full bg-light0 dark:bg-dark2">
+        <div class="p-8">
+          <CTable :invoiceID="invoiceID" />
+        </div>
+        <div
+          class="flex flex-row rounded-b-lg justify-between items-center bg-dark3 p-8 dark:bg-light4"
+        >
+          <p class="text-white text-lg font-semibold">Amount Due</p>
+          <p class="text-white text-3xl font-bold">
+            £{{ formatMoney(invoice.amount) }}
+          </p>
         </div>
       </div>
     </div>
+
+    <!--  INFO END    -->
   </div>
 </template>

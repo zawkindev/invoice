@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { formatDate } from "../../utils/helper";
 import Badge from "./Badge.vue";
 import CButton from "../base/CButton.vue";
 
@@ -13,20 +14,11 @@ const router = useRouter();
 
 const invoice = ref(props.invoice);
 
-function navigateTo() {
+function navigateToInvoice() {
   router.push({
     name: "invoice",
     params: { id: invoice.value.id, invoice: invoice.date },
   });
-}
-
-function formattedDate() {
-  const dateObject = new Date(invoice.value.date);
-  const day = dateObject.getDate();
-  const month = dateObject.toLocaleString("default", { month: "long" });
-  const year = dateObject.getFullYear();
-
-  return ` ${day} ${month.slice(0, 3)} ${year}`;
 }
 </script>
 
@@ -54,7 +46,7 @@ function formattedDate() {
           <span class="text-light3 font-bold text-3xl">#</span>{{ invoice.id }}
         </p>
         <p class="text-xl text-light3 dark:text-light1">
-          Due&nbsp;{{ formattedDate() }}
+          Due&nbsp;{{ formatDate(invoice.date) }}
         </p>
         <p class="text-xl text-light3 dark:text-light1">
           {{ invoice.fullName }}
@@ -71,7 +63,7 @@ function formattedDate() {
             alt="arrow right"
             src="../../assets/arrow-up.svg"
             class="h-4 w-4 cursor-pointer rotate-[270deg]"
-            @click="navigateTo()"
+            @click="navigateToInvoice()"
           />
         </div>
       </div>

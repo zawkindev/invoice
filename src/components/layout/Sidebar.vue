@@ -1,13 +1,17 @@
 <script setup>
-import { ref } from "vue";
+import { useRouter } from 'vue-router';
 
 const props = defineProps(["isDarkTheme"]);
 const emit = defineEmits(["toggleTheme"]);
 
-const isOpen = ref(false);
-const toggleSidebar = () => {
-  isOpen.value = !isOpen.value;
-};
+const router = useRouter()
+
+
+function navigateToHome() {
+  router.push({
+    name: "home",
+  });
+}
 </script>
 
 <template>
@@ -15,7 +19,7 @@ const toggleSidebar = () => {
     <div
       class="flex flex-col justify-between w-28 bg-dark1 h-full rounded-r-3xl"
     >
-      <img alt="icon" src="../../assets/icon.svg" @click="toggleSidebar()" />
+      <img alt="icon" src="../../assets/icon.svg" @click="navigateToHome()" />
       <div class="flex flex-col gap-8 items-center">
         <img
           v-if="props.isDarkTheme"
@@ -41,11 +45,5 @@ const toggleSidebar = () => {
         </div>
       </div>
     </div>
-  </div>
-  <div
-    v-show="isOpen"
-    class="sidebar fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
-  >
-    <div class="w-2/5 h-full bg-white dark:bg-bgDark rounded-r-3xl"></div>
   </div>
 </template>

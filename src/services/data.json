@@ -30,7 +30,45 @@
           "total": "200"
         }
       ],
-      "amount": "556"
+      "amount": "400"
+    },
+    {
+      "id": "AB5678",
+      "date": "2022-05-15",
+      "fullName": "Emma Smith",
+      "email": "emma.smith@gmail.com",
+      "money": 150.75,
+      "status": "paid",
+      "serviceType": "Web Development",
+      "invoiceDate": "2022-04-10",
+      "paymentDue": "2022-06-01",
+      "buyer": {
+        "address": "25 Park Avenue",
+        "city": "New York",
+        "postalCode": "10001",
+        "country": "United States"
+      },
+      "seller": {
+        "address": "123 Tech Street",
+        "city": "San Francisco",
+        "postalCode": "94105",
+        "country": "United States"
+      },
+      "items": [
+        {
+          "name": "Website Redesign",
+          "qty": "1",
+          "price": "800",
+          "total": "800"
+        },
+        {
+          "name": "Hosting Service",
+          "qty": "1",
+          "price": "50",
+          "total": "50"
+        }
+      ],
+      "amount": "850"
     }
   ]
 }

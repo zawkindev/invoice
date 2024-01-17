@@ -6,7 +6,7 @@ import HomeView from "./views/HomeView.vue";
 import EditView from "./components/invoice/EditView.vue";
 
 const routes = [
-  { path: "/", component: HomeView },
+  { path: "/", name: "home", component: HomeView },
   { path: "/:id", name: "invoice", component: EditView },
 ];
 

@@ -12,7 +12,7 @@ function toggleTheme() {
 <template>
   <div :class="{ dark: isDarkTheme }">
     <div
-      class="flex flex-col py-20 gap-10 h-full min-h-screen w-screen items-center bg-bgLight dark:bg-bgDark dark:text-white"
+      class="flex flex-col py-16 gap-10 h-full min-h-screen w-screen items-center bg-bgLight dark:bg-bgDark dark:text-white"
     >
       <div class="flex flex-col items-center w-3/6 gap-20 overflow-visible">
         <Sidebar @toggle-theme="toggleTheme" :is-dark-theme="isDarkTheme" />
