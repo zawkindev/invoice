@@ -1,8 +1,8 @@
 <script setup>
-import Button from "../components/Button.vue";
-import Input from "../components/Input.vue";
-import Select from "../components/Select.vue";
-import DatePicker from "../components/DatePicker.vue";
+import CButton from "../components/custom/CButton.vue";
+import CInput from "../components/custom/CInput.vue";
+import CSelect from "../components/custom/CSelect.vue";
+import DatePicker from "../components/common/Dropdown.vue";
 </script>
 
 <template>
@@ -10,9 +10,9 @@ import DatePicker from "../components/DatePicker.vue";
     id="playGround"
     class="flex flex-col justify-center items-center gap-10 h-full w-full dark:bg-[#141625]"
   >
-    <Button primary has-icon text="Save as Draft" />
-    <Input label="Street Address" />
-    <Select />
+    <CButton primary has-icon text="Save as Draft" />
+    <CInput label="Street Address" />
+    <CSelect />
     <DatePicker />
   </div>
 </template>

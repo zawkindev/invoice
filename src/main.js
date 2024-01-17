@@ -2,12 +2,12 @@ import { createApp } from "vue";
 import { createRouter, createWebHashHistory } from "vue-router";
 import "./style.css";
 import App from "./App.vue";
-import HomeScreen from "./screens/HomeScreen.vue";
-import EditScreen from "./screens/EditScreen.vue";
+import HomeView from "./views/HomeView.vue";
+import EditView from "./views/EditView.vue";
 
 const routes = [
-  { path: "/", component: HomeScreen },
-  { path: "/:id", name: "invoice", component: EditScreen },
+  { path: "/", component: HomeView },
+  { path: "/:id", name: "invoice", component: EditView },
 ];
 
 const router = createRouter({

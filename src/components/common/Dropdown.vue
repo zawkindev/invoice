@@ -27,7 +27,7 @@ function toggle(option) {
       <p class="font-bold text-2xl whitespace-nowrap">Filter by status</p>
       <img
         alt="dropwon icon"
-        src="../assets/arrow-up.svg"
+        src="../../assets/arrow-up.svg"
         :class="{ 'rotate-180': isOpen }"
         class="w-4 h-2 transition-all duration-300"
       />

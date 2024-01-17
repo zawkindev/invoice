@@ -15,28 +15,28 @@ const toggleSidebar = () => {
     <div
       class="flex flex-col justify-between w-28 bg-dark1 h-full rounded-r-3xl"
     >
-      <img alt="icon" src="../assets/icon.svg" @click="toggleSidebar()" />
+      <img alt="icon" src="../../assets/icon.svg" @click="toggleSidebar()" />
       <div class="flex flex-col gap-8 items-center">
         <img
           v-if="props.isDarkTheme"
           @click="$emit('toggleTheme')"
           class="h-6 w-5"
           alt="theme icon"
-          src="../assets/sun.svg"
+          src="../../assets/sun.svg"
         />
         <img
           v-else
           @click="emit('toggleTheme')"
           class="h-6 w-5"
           alt="theme icon"
-          src="../assets/moon.svg"
+          src="../../assets/moon.svg"
         />
 
         <div class="p-8 border-t border-[#494E6E] rounded-br-2xl">
           <img
             class="w-full h-full rounded-full"
             alt="profile photo"
-            src="../assets/profile.png"
+            src="../../assets/profile.png"
           />
         </div>
       </div>

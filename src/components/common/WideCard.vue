@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import Status from "./Status.vue";
-import Button from "./Button.vue";
+import Badge from "./Badge.vue";
+import CButton from "../custom/CButton.vue";
 
 const props = defineProps({
   invoice: Object,
@@ -39,13 +39,13 @@ function formattedDate() {
       class="flex flex-row justify-between w-full items-center px-8"
     >
       <div class="flex flex-row items-center gap-10 w-fit">
-        <p class="text-xl text-[#858BB2] dark:text-light1">Status</p>
-        <Status :status="props.invoice.status" />
+        <p class="text-xl text-[#858BB2] dark:text-light1">Badge</p>
+        <Badge :status="props.invoice.status" />
       </div>
       <div class="flex flex-row w-fit gap-5 items-center">
-        <Button edit text="Edit" />
-        <Button danger text="Delete" />
-        <Button primary text="Mark as Paid" />
+        <CButton edit text="Edit" />
+        <CButton danger text="Delete" />
+        <CButton primary text="Mark as Paid" />
       </div>
     </div>
     <div v-else class="flex w-full">
@@ -66,10 +66,10 @@ function formattedDate() {
       >
         <p class="text-3xl font-bold">£&nbsp;{{ invoice.money }}</p>
         <div class="flex flex-row gap-5 items-center">
-          <Status :status="invoice.status" />
+          <Badge :status="invoice.status" />
           <img
             alt="arrow right"
-            src="../assets/arrow-up.svg"
+            src="../../assets/arrow-up.svg"
             class="h-4 w-4 cursor-pointer rotate-[270deg]"
             @click="navigateTo()"
           />

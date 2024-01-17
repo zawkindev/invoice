@@ -1,6 +1,6 @@
 <script setup>
-import Button from "./Button.vue";
-import FilterDropdown from "./Dropdown.vue";
+import CButton from "../custom/CButton.vue";
+import Dropdown from "../common/Dropdown.vue";
 
 const props = defineProps({
   editScreen: Boolean,
@@ -18,9 +18,9 @@ const props = defineProps({
       <p v-else class="text-xl text-[#888EB0]">No invoices</p>
     </div>
     <div class="flex flex-row h-fit items-center">
-      <FilterDropdown />
+      <Dropdown />
 
-      <Button has-icon primary text="New Invoice" />
+      <CButton has-icon primary text="New Invoice" />
     </div>
   </div>
 </template>
