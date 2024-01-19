@@ -5,6 +5,7 @@ import { formatDate } from "../../utils/helper";
 import Badge from "./Badge.vue";
 import CButton from "../base/CButton.vue";
 import EditModal from "../modal/EditModal.vue";
+import DeleteModal from "../modal/DeleteModal.vue";
 
 const props = defineProps({
   invoice: Object,
@@ -15,16 +16,23 @@ const router = useRouter();
 
 const invoice = ref(props.invoice);
 
-const isModalOpen = ref(false);
+const isEditModalOpen = ref(false);
+const isDeleteModalOpen = ref(false);
 
-function openModal() {
-  isModalOpen.value = true;
+function openEditModal() {
+  isEditModalOpen.value = true;
 }
 
+function openDeleteModal() {
+
+  isDeleteModalOpen.value = true;
+}
 function closeModal(e) {
-  if (e.target.className.includes("overlay")) {
-    isModalOpen.value = false;
+  if (e.target.className.includes("overlay") || e.target.className.includes("cancel-button")) {
+    isEditModalOpen.value = false;
+    isDeleteModalOpen.value = false;
   }
+
 }
 
 function navigateToInvoice() {
@@ -50,8 +58,8 @@ function navigateToInvoice() {
         <Badge :status="props.invoice.status" />
       </div>
       <div class="flex flex-row w-fit gap-5 items-center">
-        <CButton @click="openModal" edit text="Edit" />
-        <CButton danger text="Delete" />
+        <CButton @click="openEditModal" edit text="Edit" />
+        <CButton @click="openDeleteModal" danger text="Delete" />
         <CButton primary text="Mark as Paid" />
       </div>
     </div>
@@ -88,10 +96,18 @@ function navigateToInvoice() {
     </div>
   </div>
   <div
-    v-show="isModalOpen"
+    v-show="isEditModalOpen"
     class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
     @click="closeModal"
   >
     <EditModal />
+  </div>
+  <div
+    v-show="isDeleteModalOpen"
+    class="overlay fixed flex justify-center items-center left-0 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
+    @click="closeModal"
+    @close-modal="closeModal"
+  >
+    <DeleteModal />
   </div>
 </template>
