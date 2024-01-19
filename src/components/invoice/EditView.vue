@@ -1,14 +1,17 @@
 <script setup>
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { getInvoice } from "../../services/api";
+import { useInvoiceStore } from "../../pinia/store";
 import { formatDate, formatMoney } from "../../utils/helper";
 import WideCard from "../common/WideCard.vue";
 import CTable from "../base/CTable.vue";
 
+const store = useInvoiceStore();
 const router = useRouter();
 const invoiceID = ref(router.currentRoute.value.params.id);
-const invoice = reactive(getInvoice(invoiceID.value));
+const invoice = store.getInvoice(invoiceID.value);
+
+console.log("ID: ",invoice)
 
 function goBack() {
   window.history.back();

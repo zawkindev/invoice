@@ -12,6 +12,8 @@ const props = defineProps({
   editPage: Boolean,
 });
 
+const emit = defineEmits(['deleteInvoice'])
+
 const router = useRouter();
 
 const invoice = ref(props.invoice);
@@ -24,15 +26,16 @@ function openEditModal() {
 }
 
 function openDeleteModal() {
-
   isDeleteModalOpen.value = true;
 }
 function closeModal(e) {
-  if (e.target.className.includes("overlay") || e.target.className.includes("cancel-button")) {
+  if (
+    e.target.className.includes("overlay") ||
+    e.target.className.includes("cancel-button")
+  ) {
     isEditModalOpen.value = false;
     isDeleteModalOpen.value = false;
   }
-
 }
 
 function navigateToInvoice() {
@@ -40,6 +43,18 @@ function navigateToInvoice() {
     name: "invoice",
     params: { id: invoice.value.id, invoice: invoice.date },
   });
+}
+
+function navigateToHome() {
+  router.push({
+    name: "home",
+  });
+}
+
+function deleteInvoice() {
+  console.log(invoice.value.id)
+  emit('deleteInvoice')
+  navigateToHome();
 }
 </script>
 
@@ -106,8 +121,11 @@ function navigateToInvoice() {
     v-show="isDeleteModalOpen"
     class="overlay fixed flex justify-center items-center left-0 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
     @click="closeModal"
-    @close-modal="closeModal"
   >
-    <DeleteModal :invoice-i-d="invoice.id" />
+    <DeleteModal
+      :invoice-i-d="invoice.id"
+      @close-modal="closeModal"
+      @delete-invoice="$emit('deleteInvoice')"
+    />
   </div>
 </template>

@@ -1,8 +1,11 @@
 <script setup>
-import { getInvoiceItems } from "../../services/api";
+import { useInvoiceStore } from "../../pinia/store";
 import { formatMoney } from "../../utils/helper";
 const props = defineProps(["invoiceID"]);
-const invoiceItems = getInvoiceItems(props.invoiceID);
+
+
+const store = useInvoiceStore();
+const invoiceItems = store.getInvoiceItems(props.invoiceID);
 </script>
 
 <template>
