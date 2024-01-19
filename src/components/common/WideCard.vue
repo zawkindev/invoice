@@ -108,6 +108,6 @@ function navigateToInvoice() {
     @click="closeModal"
     @close-modal="closeModal"
   >
-    <DeleteModal />
+    <DeleteModal :invoice-i-d="invoice.id" />
   </div>
 </template>
