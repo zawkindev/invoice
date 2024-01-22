@@ -81,7 +81,7 @@ function deleteInvoice() {
       <div class="flex flex-row w-fit gap-5 items-center">
         <CButton @click="openEditModal" edit text="Edit" />
         <CButton @click="openDeleteModal" danger text="Delete" />
-        <CButton v-if="invoice.status==='ending'" primary text="Mark as Paid" />
+        <CButton v-if="invoice.status==='pending'" primary text="Mark as Paid" />
       </div>
     </div>
 
