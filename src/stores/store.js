@@ -1,5 +1,5 @@
-import { defineStore  } from "pinia";
-import { reactive, ref } from "vue";
+import {defineStore} from "pinia";
+import {ref} from "vue";
 
 const invoicesData = {
   "invoices": [
@@ -77,25 +77,27 @@ const invoicesData = {
 };
 
 
-
 export const useInvoiceStore = defineStore("invoices", () => {
-  const invoices = reactive(invoicesData.invoices);
+  const invoices = ref(invoicesData.invoices);
 
-  function getData(){
+  function getData() {
     return invoices
   }
 
-  function getInvoice (invoiceID){
-    console.log("85: ",invoiceID)
-    const invoice = invoices.find((item) => item.id === invoiceID);
-    return invoice;
-  };
+  function getInvoice(invoiceID) {
+    return invoices.value.find((item) => item.id === invoiceID);
+  }
 
-  function getInvoiceItems (invoiceID) {
+  function getInvoiceItems(invoiceID) {
     const invoice = getInvoice(invoiceID);
     return invoice.items;
-  };
+  }
+
+  function deleteInvoice(invoiceID) {
+    const invoiceIndex = invoices.value.findIndex(el => el.id === invoiceID)
+    invoices.value.splice(invoiceIndex, 1)
+  }
 
 
-  return { invoices, getData, getInvoice, getInvoiceItems };
+  return {invoices, getData, getInvoice, getInvoiceItems, deleteInvoice};
 });

@@ -1,14 +1,15 @@
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { useInvoiceStore } from "../../pinia/store";
+import {useRoute, useRouter} from "vue-router";
+import { useInvoiceStore } from "../../stores/store";
 import { formatDate, formatMoney } from "../../utils/helper";
 import WideCard from "../common/WideCard.vue";
 import CTable from "../base/CTable.vue";
 
 const store = useInvoiceStore();
 const router = useRouter();
-const invoiceID = ref(router.currentRoute.value.params.id);
+const route = useRoute()
+const invoiceID = ref(route.params.id);
 const invoice = store.getInvoice(invoiceID.value);
 
 console.log("ID: ",invoice)

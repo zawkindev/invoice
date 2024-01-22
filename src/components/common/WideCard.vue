@@ -2,15 +2,19 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { formatDate } from "../../utils/helper";
+
 import Badge from "./Badge.vue";
 import CButton from "../base/CButton.vue";
 import EditModal from "../modal/EditModal.vue";
 import DeleteModal from "../modal/DeleteModal.vue";
+import {useInvoiceStore} from "../../stores/store.js";
 
 const props = defineProps({
   invoice: Object,
   editPage: Boolean,
 });
+
+const store = useInvoiceStore()
 
 const emit = defineEmits(['deleteInvoice'])
 
@@ -53,7 +57,7 @@ function navigateToHome() {
 
 function deleteInvoice() {
   console.log(invoice.value.id)
-  emit('deleteInvoice')
+  store.deleteInvoice(invoice.value.id)
   navigateToHome();
 }
 </script>
@@ -125,7 +129,7 @@ function deleteInvoice() {
     <DeleteModal
       :invoice-i-d="invoice.id"
       @close-modal="closeModal"
-      @delete-invoice="$emit('deleteInvoice')"
+      @delete-invoice="deleteInvoice"
     />
   </div>
 </template>

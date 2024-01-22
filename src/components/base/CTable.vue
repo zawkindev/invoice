@@ -1,5 +1,5 @@
 <script setup>
-import { useInvoiceStore } from "../../pinia/store";
+import { useInvoiceStore } from "../../stores/store";
 import { formatMoney } from "../../utils/helper";
 const props = defineProps(["invoiceID"]);
 
