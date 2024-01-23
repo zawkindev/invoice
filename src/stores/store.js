@@ -88,16 +88,25 @@ export const useInvoiceStore = defineStore("invoices", () => {
     return invoices.value.find((item) => item.id === invoiceID);
   }
 
+  function getInvoiceIndex(invoiceID) {
+    return invoices.value.findIndex(el => el.id === invoiceID)
+  }
+
   function getInvoiceItems(invoiceID) {
     const invoice = getInvoice(invoiceID);
     return invoice.items;
   }
 
   function deleteInvoice(invoiceID) {
-    const invoiceIndex = invoices.value.findIndex(el => el.id === invoiceID)
+    const invoiceIndex = getInvoiceIndex(invoiceID)
     invoices.value.splice(invoiceIndex, 1)
   }
 
+  function markAsPaid(invoiceID) {
+    const invoiceIndex = getInvoiceIndex(invoiceID)
+    invoices.value[invoiceIndex].status = 'paid'
+  }
 
-  return {invoices, getData, getInvoice, getInvoiceItems, deleteInvoice};
+
+  return {invoices, getData, getInvoice, getInvoiceIndex, getInvoiceItems, deleteInvoice, markAsPaid};
 });

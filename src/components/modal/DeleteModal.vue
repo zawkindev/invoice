@@ -9,7 +9,7 @@ const emit = defineEmits(["deleteInvoice", "closeDeleteModal"]);
     class="flex flex-col w-fit max-w-lg rounded-lg h-fit p-12 text-left justify-center items-left gap-3 bg-white dark:bg-dark1"
   >
     <h1 class="font-bold text-2xl">Confirm deletion</h1>
-    <p class="text-light1 font-semibold dark:text-light2">
+    <p class="dark:text-light1 font-semibold text-light2">
       Are you sure you want to delete invoice #{{ invoiceID }}? This action
       cannot be undone.
     </p>

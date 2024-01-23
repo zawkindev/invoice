@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from "vue";
+import {computed, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
-import { useInvoiceStore } from "../../stores/store";
-import { formatDate, formatMoney } from "../../utils/helper";
+import {useInvoiceStore} from "../../stores/store";
+import {formatDate, formatMoney} from "../../utils/helper";
 import WideCard from "../common/WideCard.vue";
 import CTable from "../base/CTable.vue";
 
@@ -10,40 +10,44 @@ const store = useInvoiceStore();
 const router = useRouter();
 const route = useRoute()
 const invoiceID = ref(route.params.id);
-const invoice = store.getInvoice(invoiceID.value);
+const invoice = computed(() => store.getInvoice(invoiceID.value))
 
-console.log("ID: ",invoice)
+console.log("ID: ", invoice)
 
 function goBack() {
-  window.history.back();
+  if (window.history.length > 2) {
+    router.go(-1)
+  }
 }
+
+
 </script>
 
 <template>
   <div class="flex flex-col w-full gap-10">
     <div
-      @click="goBack"
-      class="flex flex-row w-full justify-start items-center gap-4 cursor-pointer"
+        @click="goBack"
+        class="flex flex-row w-full justify-start items-center gap-4 cursor-pointer"
     >
       <img
-        class="h-5 w-4 rotate-90"
-        alt="back icon"
-        src="../../assets/arrow-up.svg"
+          class="h-5 w-4 rotate-90"
+          alt="back icon"
+          src="../../assets/arrow-up.svg"
       />
       <p class="font-semibold text-2xl">Go back</p>
     </div>
-    <WideCard edit-page :invoice="invoice" />
+    <WideCard @mark-as-paid="store.markAsPaid(invoiceID)" edit-page :invoice="invoice"/>
 
     <!--   INFO START     -->
 
     <div
-      class="flex flex-col w-full h-full bg-white p-12 gap-10 rounded-lg dark:bg-dark1"
+        class="flex flex-col w-full h-full bg-white p-12 gap-10 rounded-lg dark:bg-dark1"
     >
       <div class="flex flex-row w-full items-center justify-between">
         <div class="flex flex-col text-left gap-3">
           <p class="text-2xl font-bold">
             <span class="text-light3 font-bold text-2xl">#</span
-            >{{ invoice.id }}
+            >{{ invoiceID }}
           </p>
           <p class="text-light3 dark:text-light1 font-semibold text-lg">
             {{ invoice.serviceType }}
@@ -118,10 +122,10 @@ function goBack() {
       </div>
       <div class="rounded-t-lg w-full h-full bg-light0 dark:bg-dark2">
         <div class="p-8">
-          <CTable :invoiceID="invoiceID" />
+          <CTable :invoiceID="invoiceID"/>
         </div>
         <div
-          class="flex flex-row rounded-b-lg justify-between items-center bg-dark3 p-8 dark:bg-light4"
+            class="flex flex-row rounded-b-lg justify-between items-center bg-dark3 p-8 dark:bg-light4"
         >
           <p class="text-white text-lg font-semibold">Amount Due</p>
           <p class="text-white text-3xl font-bold">
