@@ -10,21 +10,14 @@ import WideCard from "../components/common/WideCard.vue";
 const store = useInvoiceStore();
 const invoices = computed(()=>store.getInvoicesList().value)
 const checkedStatus = computed(()=>store.checkedStatus)
-const invoiceCount = computed(()=>store.getInvoicesList().value.length);
-
+const invoiceCount = computed(()=>store.filterByStatus(checkedStatus.value).length);
 
 </script>
 
 <template>
   <Header :invoice-count="invoiceCount" />
-  <div v-if="invoiceCount" class="flex flex-col w-full h-fit gap-5">
+  <div v-if="invoiceCount || invoiceCount===0" class="flex flex-col w-full h-fit gap-5">
     <WideCard
-    v-if="checkedStatus===''"
-      v-for="invoice in invoices"
-      :invoice="invoice"
-    />
-    <WideCard
-        v-else
         v-for="invoice in store.filterByStatus(checkedStatus)"
         :invoice="invoice"
     />

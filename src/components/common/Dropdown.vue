@@ -28,7 +28,7 @@ function check(option) {
       el.isChecked = false
     } else {
       target.isChecked = !target.isChecked;
-      store.checkedStatus = target.isChecked ? target.name.toLowerCase() : '';
+      store.checkedStatus = target.isChecked ? target.name.toLowerCase() : 'status';
     }
   })
 }
@@ -41,7 +41,7 @@ function check(option) {
         @click="toggleDropdown"
         class="flex flex-row w-full gap-4 justify-center items-center hover:cursor-pointer"
     >
-      <p class="font-bold text-2xl whitespace-nowrap">Filter by {{ store.checkedStatus || 'status' }}</p>
+      <p class="font-bold text-right text-2xl whitespace-nowrap">Filter by {{ store.checkedStatus }}</p>
       <img
           alt="dropwon icon"
           src="../../assets/arrow-up.svg"

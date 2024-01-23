@@ -47,7 +47,7 @@ function goBack() {
         <div class="flex flex-col text-left gap-3">
           <p class="text-2xl font-bold">
             <span class="text-light3 font-bold text-2xl">#</span
-            >{{ invoiceID }}
+            >{{ invoice.id }}
           </p>
           <p class="text-light3 dark:text-light1 font-semibold text-lg">
             {{ invoice.serviceType }}
