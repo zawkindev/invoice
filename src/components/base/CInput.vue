@@ -1,12 +1,10 @@
 <script setup>
 import { ref } from "vue";
 
-const props = defineProps({
-  label: String,
-  id: [String, Number],
-});
+const props = defineProps(['id','label','value', 'placeholder']);
 
 const inputValue = ref("fa");
+function
 </script>
 
 <template>
@@ -15,6 +13,7 @@ const inputValue = ref("fa");
     <input
       :id="id"
       v-model="inputValue"
+      :placeholder="placeholder"
       class="w-72 py-3 px-5 border border-light1 rounded font-semibold text-xl focus:border-secondary focus:outline-none dark:bg-dark1 dark:border-dark2 dark:text-white"
       type="text"
       placeholder="asfasf"
