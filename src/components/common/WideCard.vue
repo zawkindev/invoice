@@ -16,7 +16,7 @@ const props = defineProps({
 
 const store = useInvoiceStore()
 
-const emit = defineEmits(['deleteInvoice','markAsPaid'])
+const emit = defineEmits(['deleteInvoice','markAsPaid', "markAsPending"])
 
 const router = useRouter();
 
@@ -81,7 +81,8 @@ function deleteInvoice() {
       <div class="flex flex-row w-fit gap-5 items-center">
         <CButton @click="openEditModal" edit text="Edit" />
         <CButton @click="openDeleteModal" danger text="Delete" />
-        <CButton v-if="invoice.status==='pending'" @click="$emit('markAsPaid')" primary text="Mark as Paid" />
+        <CButton class="min-w-[171px]" v-if="invoice.status==='pending'" @click="$emit('markAsPaid')" primary text="Mark as Paid" />
+        <CButton class="min-w-[171px]" v-if="invoice.status==='paid'" @click="$emit('markAsPending')" primary text="Mark as Pending" />
       </div>
     </div>
 

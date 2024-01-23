@@ -36,7 +36,7 @@ function goBack() {
       />
       <p class="font-semibold text-2xl">Go back</p>
     </div>
-    <WideCard @mark-as-paid="store.markAsPaid(invoiceID)" edit-page :invoice="invoice"/>
+    <WideCard @mark-as-paid="store.markAs(invoiceID,'paid')" @mark-as-pending="store.markAs(invoiceID,'pending')" edit-page :invoice="invoice"/>
 
     <!--   INFO START     -->
 

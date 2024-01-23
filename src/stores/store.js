@@ -79,8 +79,9 @@ const invoicesData = {
 
 export const useInvoiceStore = defineStore("invoices", () => {
   const invoices = ref(invoicesData.invoices);
+  const checkedStatus = ref('')
 
-  function getData() {
+  function getInvoicesList() {
     return invoices
   }
 
@@ -102,11 +103,18 @@ export const useInvoiceStore = defineStore("invoices", () => {
     invoices.value.splice(invoiceIndex, 1)
   }
 
-  function markAsPaid(invoiceID) {
+  function markAs(invoiceID,statusType) {
     const invoiceIndex = getInvoiceIndex(invoiceID)
-    invoices.value[invoiceIndex].status = 'paid'
+    invoices.value[invoiceIndex].status = statusType
+  }
+
+  function filterByStatus(targetStatus) {
+
+    console.log("targetStatus: ",targetStatus)
+    console.log("targetArray: ",invoices.value.filter(item => item.status === targetStatus))
+    return invoices.value.filter(item => item.status === targetStatus.toLowerCase())
   }
 
 
-  return {invoices, getData, getInvoice, getInvoiceIndex, getInvoiceItems, deleteInvoice, markAsPaid};
+  return {invoices,checkedStatus, getInvoicesList, getInvoice, getInvoiceItems, deleteInvoice, markAs, filterByStatus};
 });

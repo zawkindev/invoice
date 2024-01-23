@@ -1,6 +1,8 @@
 <script setup>
 import {ref} from "vue";
+import {useInvoiceStore} from "../../stores/store.js";
 
+const store = useInvoiceStore()
 const isOpen = ref(false);
 const options = ref([
   {name: "Draft", isChecked: false},
@@ -12,14 +14,17 @@ function toggleDropdown() {
   isOpen.value = !isOpen.value;
 }
 
-function toggle(option) {
+function check(option) {
   const target = options.value.find((el) => el.name === option.name);
   options.value.forEach(el => {
     if (el.name !== option.name) {
       el.isChecked = false
     }
+    else {
+      target.isChecked = !target.isChecked;
+      store.checkedStatus = target.isChecked?target.name.toLowerCase():'';
+    }
   })
-  target.isChecked = !target.isChecked;
 }
 </script>
 
@@ -43,7 +48,7 @@ function toggle(option) {
     >
       <div class="dropdown w-full flex flex-col p-6 gap-2">
         <div
-            @click="toggle(option)"
+            @click="check(option)"
             v-for="option in options"
             :key="option.name"
             class="flex flex-row items-center gap-4 hover:cursor-pointer"
