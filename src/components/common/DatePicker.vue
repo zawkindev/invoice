@@ -50,14 +50,11 @@ const nextMonth = () => {
   }
 };
 
-onMounted(() => {
-  // You can perform initial setup here
-});
 </script>
 
 <template>
   <div
-    class="w-72 relative date-picker p-4 border rounded-md dark:bg-dark1 dark:border-dark2 dark:text-white"
+    class="w-full relative date-picker p-4 border rounded-md dark:bg-dark1 dark:border-dark2 dark:text-white"
   >
     <div
       class="flex flex-row justify-between items-center selected-date text-xl font-semibold"
