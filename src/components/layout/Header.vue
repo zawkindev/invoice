@@ -20,7 +20,7 @@ const props = defineProps({
     <div class="flex flex-row h-fit items-center">
       <Dropdown />
 
-      <CButton has-icon primary text="New Invoice" />
+      <CButton @click="$emit('openSideModal')" has-icon primary text="New Invoice" />
     </div>
   </div>
 </template>

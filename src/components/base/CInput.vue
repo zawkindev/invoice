@@ -7,7 +7,7 @@ const inputValue = ref(props.value);
 </script>
 
 <template>
-  <div class="flex flex-col flex-1 max-w-full font-semibold gap-2">
+  <div :class="{'max-w-fit':inTable}" class="flex flex-col flex-1 max-w-full font-semibold gap-2">
     <label class="capitalize text-light3 dark:text-light1" :for="id">{{ label }}</label>
     <input
       :id="id"

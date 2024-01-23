@@ -17,7 +17,7 @@ const props = defineProps({
 
 const store = useInvoiceStore()
 
-const emit = defineEmits(['deleteInvoice', 'markAsPaid', "markAsPending"])
+const emit = defineEmits(['deleteInvoice', 'markAsPaid', "markAsPending", "saveInvoice"])
 
 const router = useRouter();
 
@@ -45,11 +45,15 @@ function closeModal(e) {
   }
 }
 
+function saveInvoice(){
+  isSideModalOpen.value = false;
+}
+
 function navigateToInvoice() {
   if (!props.editPage) {
     router.push({
       name: "invoice",
-      params: {id: invoice.value.id, invoice: invoice.date},
+      params: {id: invoice.id},
     });
   }
 }
@@ -129,15 +133,7 @@ function deleteInvoice() {
       class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
       @click="closeModal"
   >
-    <SideModal :invoice-i-d="invoice.id" in-edit-view="true"/>
-  </div>
-  <div
-      v-else
-      v-show="isSideModalOpen"
-      class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
-      @click="closeModal"
-  >
-<!--    <SideModal :invoice-i-d="generateID()"/>-->
+    <SideModal @save-invoice="saveInvoice" :invoice-i-d="invoice.id" in-edit-view="true"/>
   </div>
   <div
       v-show="isDeleteModalOpen"

@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
 
+
+const props = defineProps(['label'])
 // Define options based on the image content
 const options = ref([
   { value: "net_1_day", label: "Net 1 Day" },
@@ -22,10 +24,12 @@ const isOpen = ref(false);
 </script>
 
 <template>
+  <div class="flex flex-col w-full relative gap-2">
+    <p class="capitalize font-semibold  text-light3 dark:text-light1">{{ label }}</p>
   <button
     :class="{ 'border-light3': isOpen }"
     @click="isOpen = !isOpen"
-    class="relative w-72 py-4 px-5 text-left font-semibold border rounded-md shadow-sm dark:bg-dark1 dark:border-dark2 dark:text-white"
+    class="relative w-full py-4 px-5 text-left font-normal border rounded-md shadow-sm dark:bg-dark1 dark:border-dark2 dark:text-white"
   >
     <div
       class="flex w-full items-center justify-between dark:bg-dark1 dark:border-dark2 dark:text-white"
@@ -62,4 +66,5 @@ const isOpen = ref(false);
       </div>
     </div>
   </button>
+  </div>
 </template>
