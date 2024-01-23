@@ -1,16 +1,17 @@
 <script setup>
 import {ref} from "vue";
 import {useRouter} from "vue-router";
-import {formatDate} from "../../utils/helper";
+import {formatDate, generateID} from "../../utils/helper";
+
 
 import Badge from "./Badge.vue";
 import CButton from "../base/CButton.vue";
-import EditModal from "../modal/EditModal.vue";
+import SideModal from "../modal/SideModal.vue";
 import DeleteModal from "../modal/DeleteModal.vue";
 import {useInvoiceStore} from "../../stores/store.js";
 
 const props = defineProps({
-  invoice: Object,
+  invoiceID: String,
   editPage: Boolean,
 });
 
@@ -20,15 +21,14 @@ const emit = defineEmits(['deleteInvoice', 'markAsPaid', "markAsPending"])
 
 const router = useRouter();
 
-const invoice = ref(props.invoice);
+const invoice = store.getInvoice(props.invoiceID);
 
-console.log("status: ", props.invoice.status)
 
-const isEditModalOpen = ref(false);
+const isSideModalOpen = ref(false);
 const isDeleteModalOpen = ref(false);
 
-function openEditModal() {
-  isEditModalOpen.value = true;
+function openSideModal() {
+  isSideModalOpen.value = true;
 }
 
 function openDeleteModal() {
@@ -40,7 +40,7 @@ function closeModal(e) {
       e.target.className.includes("overlay") ||
       e.target.className.includes("cancel-button")
   ) {
-    isEditModalOpen.value = false;
+    isSideModalOpen.value = false;
     isDeleteModalOpen.value = false;
   }
 }
@@ -69,7 +69,7 @@ function deleteInvoice() {
 
 <template>
   <div
-  @click="navigateToInvoice(invoice.id)"
+      @click="navigateToInvoice(invoice.id)"
       class="cursor-pointer flex flex-row justify-between items-center font-semibold w-full h-fit py-8 px-6 bg-white shadow-md rounded-lg dark:bg-dark1"
   >
     <!--  IF  -->
@@ -80,10 +80,10 @@ function deleteInvoice() {
     >
       <div class="flex flex-row items-center gap-10 w-fit">
         <p class="text-xl text-[#858BB2] dark:text-light1">Badge</p>
-        <Badge :status="props.invoice.status"/>
+        <Badge :status="invoice.status"/>
       </div>
       <div class="flex flex-row w-fit gap-5 items-center">
-        <CButton @click="openEditModal" edit text="Edit"/>
+        <CButton @click="openSideModal" edit text="Edit"/>
         <CButton @click="openDeleteModal" danger text="Delete"/>
         <CButton class="min-w-[171px]" v-if="invoice.status==='pending'" @click="$emit('markAsPaid')" primary
                  text="Mark as Paid"/>
@@ -124,11 +124,20 @@ function deleteInvoice() {
     </div>
   </div>
   <div
-      v-show="isEditModalOpen"
+      v-if="editPage"
+      v-show="isSideModalOpen"
       class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
       @click="closeModal"
   >
-    <EditModal/>
+    <SideModal :invoice-i-d="invoice.id" in-edit-view="true"/>
+  </div>
+  <div
+      v-else
+      v-show="isSideModalOpen"
+      class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
+      @click="closeModal"
+  >
+<!--    <SideModal :invoice-i-d="generateID()"/>-->
   </div>
   <div
       v-show="isDeleteModalOpen"

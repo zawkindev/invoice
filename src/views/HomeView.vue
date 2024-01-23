@@ -19,7 +19,7 @@ const invoiceCount = computed(()=>store.filterByStatus(checkedStatus.value).leng
   <div v-if="invoiceCount || invoiceCount===0" class="flex flex-col w-full h-fit gap-5">
     <WideCard
         v-for="invoice in store.filterByStatus(checkedStatus)"
-        :invoice="invoice"
+        :invoice-i-d="invoice.id"
     />
   </div>
   <NoData v-else />

@@ -36,7 +36,7 @@ function goBack() {
       />
       <p class="font-semibold text-2xl">Go back</p>
     </div>
-    <WideCard @mark-as-paid="store.markAs(invoiceID,'paid')" @mark-as-pending="store.markAs(invoiceID,'pending')" edit-page :invoice="invoice"/>
+    <WideCard @mark-as-paid="store.markAs(invoiceID,'paid')" @mark-as-pending="store.markAs(invoiceID,'pending')" edit-page :invoice-i-d="invoice.id"/>
 
     <!--   INFO START     -->
 
@@ -55,16 +55,16 @@ function goBack() {
         </div>
         <div class="flex flex-col text-right gap-1">
           <p class="text-light3 dark:text-light1 font-semibold text-lg">
-            {{ invoice.buyer.address }}
+            {{ invoice.seller.address }}
           </p>
           <p class="text-light3 dark:text-light1 font-semibold text-lg">
-            {{ invoice.buyer.city }}
+            {{ invoice.seller.city }}
           </p>
           <p class="text-light3 dark:text-light1 font-semibold text-lg">
-            {{ invoice.buyer.postalCode }}
+            {{ invoice.seller.postalCode }}
           </p>
           <p class="text-light3 dark:text-light1 font-semibold text-lg">
-            {{ invoice.buyer.country }}
+            {{ invoice.seller.country }}
           </p>
         </div>
       </div>
@@ -98,16 +98,16 @@ function goBack() {
           </div>
           <div>
             <p class="text-light3 dark:text-light1 font-semibold text-lg">
-              {{ invoice.seller.address }}
+              {{ invoice.buyer.address }}
             </p>
             <p class="text-light3 dark:text-light1 font-semibold text-lg">
-              {{ invoice.seller.city }}
+              {{ invoice.buyer.city }}
             </p>
             <p class="text-light3 dark:text-light1 font-semibold text-lg">
-              {{ invoice.seller.postalCode }}
+              {{ invoice.buyer.postalCode }}
             </p>
             <p class="text-light3 dark:text-light1 font-semibold text-lg">
-              {{ invoice.seller.country }}
+              {{ invoice.buyer.country }}
             </p>
           </div>
         </div>
