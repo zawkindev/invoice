@@ -12,6 +12,13 @@ const options = ref([
 
 function toggleDropdown() {
   isOpen.value = !isOpen.value;
+  if (isOpen.value === true) {
+    window.addEventListener('click', (event) => {
+      if (!event.target.closest(".dropdown")) {
+          isOpen.value = false
+      }
+    })
+  }
 }
 
 function check(option) {
@@ -19,22 +26,22 @@ function check(option) {
   options.value.forEach(el => {
     if (el.name !== option.name) {
       el.isChecked = false
-    }
-    else {
+    } else {
       target.isChecked = !target.isChecked;
-      store.checkedStatus = target.isChecked?target.name.toLowerCase():'';
+      store.checkedStatus = target.isChecked ? target.name.toLowerCase() : '';
     }
   })
 }
+
 </script>
 
 <template>
-  <div class="relative w-full px-10">
+  <div class="dropdown relative w-full px-10">
     <div
         @click="toggleDropdown"
         class="flex flex-row w-full gap-4 justify-center items-center hover:cursor-pointer"
     >
-      <p class="font-bold text-2xl whitespace-nowrap">Filter by status</p>
+      <p class="font-bold text-2xl whitespace-nowrap">Filter by {{ store.checkedStatus || 'status' }}</p>
       <img
           alt="dropwon icon"
           src="../../assets/arrow-up.svg"
