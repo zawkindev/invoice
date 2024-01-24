@@ -12,9 +12,13 @@ const invoice = store.getInvoice(props.invoiceID) || store.emptyInvoice
 const invoiceItems = invoice.items;
 
 watch(invoice, (newData) => {
+  let invoiceAmount = 0
   newData.items.forEach(item => {
     item.total = (parseFloat(item.qty) || 0) * (parseFloat(item.price) || 0)
+    invoiceAmount += item.total
   })
+  newData.money = invoiceAmount
+
 })
 
 console.log(invoiceItems)

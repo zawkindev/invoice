@@ -10,7 +10,7 @@ const store = useInvoiceStore();
 const router = useRouter();
 const route = useRoute()
 const invoiceID = ref(route.params.id);
-const invoice = computed(() => store.getInvoice(invoiceID.value))
+const invoice = store.getInvoice(invoiceID.value)
 
 console.log("ID: ", invoice)
 
@@ -41,7 +41,7 @@ function goBack() {
       <p class="font-semibold text-2xl">Go back</p>
     </div>
     <WideCard @mark-as-paid="store.markAs(invoiceID,'paid')" @mark-as-pending="store.markAs(invoiceID,'pending')"
-              edit-page :invoice-i-d="invoice.id"/>
+              edit-page :invoice-i-d="invoiceID"/>
 
     <!--   INFO START     -->
 

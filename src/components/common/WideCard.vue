@@ -46,16 +46,20 @@ function openDeleteModal() {
 }
 
 function closeModal(e) {
-  if (
-      e.target.className.includes("overlay") ||
-      e.target.className.includes("cancel-button")
-  ) {
-    isSideModalOpen.value = false;
-    isDeleteModalOpen.value = false;
-    isModalOpen.value = false;
-  }
-  if (route.fullPath.includes("/edit")) {
-    router.go(-1)
+  if (e) {
+    if (
+        !e.target.closest('form')
+    ) {
+      isSideModalOpen.value = false;
+      isDeleteModalOpen.value = false;
+      isModalOpen.value = false;
+    }
+    if (route.fullPath.includes("/edit")) {
+      router.go(-1)
+    }
+  } else {
+
+    isModalOpen.value = false
   }
 }
 
@@ -86,8 +90,8 @@ function navigateToSideModal() {
 }
 
 function deleteInvoice() {
-  console.log(invoice.value.id)
-  store.deleteInvoice(invoice.value.id)
+  console.log(invoice.id)
+  store.deleteInvoice(invoice.id)
   navigateToHome();
 }
 

@@ -32,15 +32,13 @@ function closeModal(e) {
   } else {
     isSideModalOpen.value = false
   }
-
-
 }
 
 </script>
 
 <template>
   <Header @open-side-modal="openSideModal" :invoice-count="invoiceCount"/>
-  <div v-if="invoiceCount || invoiceCount===0" class="flex flex-col w-full h-fit gap-5">
+  <div v-if="invoiceCount" class="flex flex-col w-full h-fit gap-5">
     <WideCard
         v-for="invoice in store.filterByStatus(checkedStatus)"
         :invoice-i-d="invoice.id"
@@ -49,7 +47,7 @@ function closeModal(e) {
   <NoData v-else/>
 
   <div
-      v-if="isSideModalOpen"
+      v-show="isSideModalOpen"
       class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
       @click="closeModal"
   >

@@ -126,7 +126,7 @@ export const useInvoiceStore = defineStore("invoices", () => {
   function getEmptyInvoice() {
     emptyInvoice.value.id = generateID()
     emptyInvoice.value.status = 'draft'
-    emptyInvoice.value.amount = 0
+    emptyInvoice.value.money = 0
     return emptyInvoice.value
   }
 

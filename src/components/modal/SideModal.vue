@@ -6,14 +6,13 @@ import CSelect from "../base/CSelect.vue";
 import CTable from "../base/CTable.vue";
 import CButton from "../base/CButton.vue";
 import {computed, ref} from "vue";
-import {deepClone} from "../../utils/helper.js";
 
 
 const store = useInvoiceStore()
 const props = defineProps(['invoiceID', 'inEditView'])
 
 const checkedStatus = computed(() => store.checkedStatus)
-const emit = defineEmits(["closeDeleteModal"]);
+const emit = defineEmits(["closeDeleteModal", "closeModal"]);
 const invoice = props.inEditView ? store.getInvoice(props.invoiceID) : store.getEmptyInvoice();
 
 function saveInvoice() {
@@ -22,10 +21,16 @@ function saveInvoice() {
   } else {
     store.addInvoice(invoice)
   }
+  emit("closeModal")
   console.log("empty invoice: ", invoice)
   console.log("filter store: ", store.filterByStatus(checkedStatus.value))
 }
 
+
+function closeModal() {
+  invoice.status = "draft"
+  emit("closeModal")
+}
 
 </script>
 
@@ -55,7 +60,7 @@ function saveInvoice() {
         <p class="font-bold text-primary">Bill To</p>
         <CInput label="Name" :value="invoice.fullName"
                 @input-value="(value)=>invoice.fullName=value"/>
-        <CInput label="Client's email" :value="invoice.email"
+        <CInput type="email" label="Client's email" :value="invoice.email"
                 @input-value="(value)=>invoice.email=value"/>
         <CInput label="Street Address" :value="invoice.buyer.address"
                 @input-value="(value)=>invoice.buyer.address=value"/>
@@ -104,7 +109,7 @@ function saveInvoice() {
         <p class="font-bold text-primary">Bill To</p>
         <CInput label="Name" :placeholder="invoice.fullName"
                 @input-value="(value)=>invoice.fullName=value"/>
-        <CInput label="Client's email" :placeholder="invoice.email"
+        <CInput type="email" label="Client's email" :placeholder="invoice.email"
                 @input-value="(value)=>invoice.email=value"/>
         <CInput label="Street Address" :placeholder="invoice.buyer.address"
                 @input-value="(value)=>invoice.buyer.address=value"/>
@@ -133,7 +138,7 @@ function saveInvoice() {
     </div>
     <div class="buttons flex w-full content-end items-end">
       <div class="flex ml-auto gap-4 w-fit self-end">
-        <CButton class="cancel-button" @click="$emit('closeModal')" edit text="Cancel"/>
+        <CButton class="cancel-button" @click="closeModal" edit text="Cancel"/>
         <CButton type="submit" primary text="Save Changes"/>
       </div>
     </div>
