@@ -34,7 +34,8 @@ export function generateID() {
   return `${letters}${numbers}`;
 }
 
-export function clearValuesOfInvoice(invoice) {
+export function clearValuesOfInvoice(targetInvoice) {
+  const invoice = deepClone(targetInvoice)
   // Ensure the provided argument is an object
   if (invoice && typeof invoice === 'object') {
     // Iterate through each key in the provided invoice

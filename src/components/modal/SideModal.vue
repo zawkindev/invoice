@@ -5,22 +5,33 @@ import DatePicker from "../common/DatePicker.vue";
 import CSelect from "../base/CSelect.vue";
 import CTable from "../base/CTable.vue";
 import CButton from "../base/CButton.vue";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {deepClone} from "../../utils/helper.js";
 
 
 const store = useInvoiceStore()
 const props = defineProps(['invoiceID', 'inEditView'])
 
-const emit = defineEmits(["saveInvoice", "closeDeleteModal"]);
-const invoiceInStore = props.inEditView?store.getInvoice(props.invoiceID):store.getEmptyInvoice();
-const invoice = ref(deepClone(invoiceInStore))
+const checkedStatus = computed(() => store.checkedStatus)
+const emit = defineEmits(["closeDeleteModal"]);
+const invoice = props.inEditView ? store.getInvoice(props.invoiceID) : store.getEmptyInvoice();
+
+function saveInvoice() {
+  if (props.inEditView) {
+    store.replaceInvoice(invoice.id, invoice)
+  } else {
+    store.addInvoice(invoice)
+  }
+  console.log("empty invoice: ", invoice)
+  console.log("filter store: ", store.filterByStatus(checkedStatus.value))
+}
 
 
 </script>
 
 <template>
-  <div
+  <form
+      @submit.prevent="saveInvoice"
       class="box-border w-2/5 flex flex-col h-full p-8 gap-6  bg-white dark:bg-bgDark rounded-r-3xl overflow-scroll">
     <div v-if="inEditView" class="flex flex-col h-fit gap-12 overflow-visible ">
       <p class="text-3xl font-bold">
@@ -123,8 +134,8 @@ const invoice = ref(deepClone(invoiceInStore))
     <div class="buttons flex w-full content-end items-end">
       <div class="flex ml-auto gap-4 w-fit self-end">
         <CButton class="cancel-button" @click="$emit('closeModal')" edit text="Cancel"/>
-        <CButton @click="$emit('saveInvoice')" primary text="Save Changes"/>
+        <CButton type="submit" primary text="Save Changes"/>
       </div>
     </div>
-  </div>
+  </form>
 </template>

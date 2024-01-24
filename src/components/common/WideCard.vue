@@ -160,6 +160,6 @@ function getModalClass() {
        :class="getModalClass()"
        class="overlay fixed top-0 z-50 w-screen h-screen bg-black bg-opacity-40'" @click="closeModal">
     <Component :is="currentComponent" @close-modal="closeModal" @delete-invoice="deleteInvoice"
-               @save-invoice="saveInvoice" :invoice-i-d="invoice.id" in-edit-view="true"></Component>
+               :invoice-i-d="invoice.id" in-edit-view="true"></Component>
   </div>
 </template>

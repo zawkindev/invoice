@@ -7,8 +7,9 @@ const props = defineProps(["invoiceID", "inModal"]);
 
 
 const store = useInvoiceStore();
-const invoice = store.getInvoice(props.invoiceID)
-const invoiceItems = store.getInvoiceItems(props.invoiceID);
+const invoice = store.getInvoice(props.invoiceID) || store.emptyInvoice
+const invoiceItems = invoice.items;
+console.log(invoiceItems)
 </script>
 
 <template>
@@ -32,7 +33,6 @@ const invoiceItems = store.getInvoiceItems(props.invoiceID);
       <div class="flex flex-row flex-1 justify-between items-center gap-6">
         <CInput :value="item.qty" @input-value="(value)=>invoice.items[index].qty=value"/>
         <CInput :value="item.price" @input-value="(value)=>invoice.items[index].price=value"/>
-<!--        <CInput :value="item.total" @input-value="(value)=>invoice.items[index].total=value"/>-->
         <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
       </div>
     </div>

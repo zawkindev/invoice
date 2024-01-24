@@ -74,12 +74,45 @@ const invoicesData = {
       ],
       "amount": "850"
     }
-  ]
+  ],
+  "emptyInvoice": {
+    "id": "",
+    "date": "",
+    "fullName": "",
+    "email": "",
+    "money": "",
+    "status": "",
+    "serviceType": "",
+    "invoiceDate": "",
+    "paymentDue": "",
+    "buyer": {
+      "address": "",
+      "city": "",
+      "postalCode": "",
+      "country": ""
+    },
+    "seller": {
+      "address": "",
+      "city": "",
+      "postalCode": "",
+      "country": ""
+    },
+    "items": [
+      {
+        "name": "",
+        "qty": "",
+        "price": "",
+        "total": ""
+      }
+    ],
+    "amount": ""
+  }
 };
 
 
 export const useInvoiceStore = defineStore("invoices", () => {
   const invoices = ref(invoicesData.invoices);
+  const emptyInvoice = ref(invoicesData.emptyInvoice)
   const checkedStatus = ref('status')
 
   function getInvoicesList() {
@@ -90,10 +123,10 @@ export const useInvoiceStore = defineStore("invoices", () => {
     return invoices.value.find((item) => item.id === invoiceID);
   }
 
-  function getEmptyInvoice(){
-   const newInvoice = invoicesData.invoices[0]
-   newInvoice.id = generateID()
-   return newInvoice
+  function getEmptyInvoice() {
+    emptyInvoice.value.id = generateID()
+    emptyInvoice.value.status = 'draft'
+    return emptyInvoice.value
   }
 
   function getInvoiceIndex(invoiceID) {
@@ -119,12 +152,41 @@ export const useInvoiceStore = defineStore("invoices", () => {
     if (targetStatus === 'status') {
       return invoices.value
     }
-
-    console.log("targetStatus: ", targetStatus)
-    console.log("targetArray: ", invoices.value.filter(item => item.status === targetStatus))
+    console.log("filtered: ",invoices.value.filter(item => item.status === targetStatus.toLowerCase()))
     return invoices.value.filter(item => item.status === targetStatus.toLowerCase())
   }
 
+  function replaceInvoice(invoiceID, newInvoice) {
+    const index = getInvoiceIndex(invoiceID)
+    if (index !== -1) {
+      invoices.value.splice(index, 1, newInvoice);
+      clearEmptyInvoice()
+    }
+  }
 
-  return {invoices, checkedStatus, getInvoicesList, getInvoice, getEmptyInvoice, getInvoiceItems, deleteInvoice, markAs, filterByStatus};
+  function addInvoice(newInvoice) {
+    invoices.value.push(newInvoice)
+    clearEmptyInvoice()
+  }
+
+  function clearEmptyInvoice() {
+    emptyInvoice.value = clearValuesOfInvoice(emptyInvoice.value)
+  }
+
+
+  return {
+    invoices,
+    emptyInvoice,
+    checkedStatus,
+    getInvoicesList,
+    getInvoice,
+    getEmptyInvoice,
+    getInvoiceItems,
+    addInvoice,
+    deleteInvoice,
+    replaceInvoice,
+    clearEmptyInvoice,
+    markAs,
+    filterByStatus
+  };
 });
