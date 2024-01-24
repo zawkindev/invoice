@@ -16,7 +16,7 @@ function getClasses() {
 <template>
   <div
     :class="getClasses()"
-    class="flex flex-row w-40 font-bold items-center justify-center gap-2 py-3 rounded-md bg-opacity-10"
+    class="flex flex-row w-fit font-bold items-center justify-center gap-2 py-3 px-5 rounded-md bg-opacity-10"
   >
     <svg
       class="h-4 w-4"
@@ -30,6 +30,6 @@ function getClasses() {
         d="M5.81748 0.899658C3.10575 0.899658 0.899658 3.10618 0.899658 5.81792C0.899658 8.52966 3.10575 10.7362 5.81748 10.7362C8.52879 10.7362 10.7353 8.53009 10.7353 5.81792C10.7353 3.10575 8.52879 0.899658 5.81748 0.899658Z"
       />
     </svg>
-    <p class="text-2xl capitalize">{{ status }}</p>
+    <p class="text-lg capitalize">{{ status }}</p>
   </div>
 </template>

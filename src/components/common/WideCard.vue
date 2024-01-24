@@ -74,16 +74,16 @@ function deleteInvoice() {
 <template>
   <div
       @click="navigateToInvoice(invoice.id)"
-      class="cursor-pointer flex flex-row justify-between items-center font-semibold w-full h-fit py-8 px-6 bg-white shadow-md rounded-lg dark:bg-dark1"
+      class="cursor-pointer flex flex-row justify-between items-center  w-full h-fit py-8 px-8 bg-white shadow-md rounded-lg dark:bg-dark1"
   >
     <!--  IF  -->
 
     <div
         v-if="props.editPage"
-        class="flex flex-row justify-between w-full items-center px-8"
+        class="flex flex-row justify-between w-full gap-4 items-center"
     >
-      <div class="flex flex-row items-center gap-10 w-fit">
-        <p class="text-xl text-[#858BB2] dark:text-light1">Badge</p>
+      <div class="flex flex-row items-center gap-6 w-fit">
+        <p class=" text-[#858BB2] dark:text-light1">Status</p>
         <Badge :status="invoice.status"/>
       </div>
       <div class="flex flex-row w-fit gap-5 items-center">
@@ -98,24 +98,23 @@ function deleteInvoice() {
 
     <!--  ELSE   -->
 
-    <div v-else class="flex w-full">
-      <div class="flex flex-row w-full items-center gap-10">
-        <p class="text-3xl font-bold">
+    <div v-else class="flex justify-between w-full">
+      <div class="flex flex-row w-full items-center justify-start gap-10">
+        <p class="text-xl font-bold">
           <span class="text-light3 font-bold text-3xl">#</span>{{ invoice.id }}
         </p>
-        <p class="text-xl text-light3 dark:text-light1">
+        <p class="text-lg text-light3 dark:text-light1">
           Due&nbsp;{{ formatDate(invoice.date) }}
         </p>
-        <p class="text-xl text-light3 dark:text-light1">
+        <p class="text-lg">
           {{ invoice.fullName }}
         </p>
       </div>
       <div
-          v-show="!props.editPage"
           class="flex flex-row w-full items-center justify-end gap-8"
       >
-        <p class="text-3xl font-bold">£&nbsp;{{ invoice.money }}</p>
-        <div class="flex flex-row gap-5 items-center">
+        <p class="text-2xl font-bold">£&nbsp;{{ invoice.money }}</p>
+        <div class="flex flex-row gap-3 items-center">
           <Badge :status="invoice.status"/>
           <img
               alt="arrow right"
