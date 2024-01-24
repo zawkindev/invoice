@@ -13,7 +13,7 @@ const inputValue = ref(props.value);
         required
         :id="id"
         v-model="inputValue"
-        :placeholder="placeholder"
+        :placeholder="label||placeholder"
         @input="$emit('inputValue', inputValue)"
         class="py-3 px-5 w-full border border-light1 rounded font-normal text-lg focus:border-secondary focus:outline-none dark:bg-dark1 dark:border-dark2 dark:text-white"
         :type="type||'text'"

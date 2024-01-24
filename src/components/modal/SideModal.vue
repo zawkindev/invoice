@@ -6,24 +6,23 @@ import CSelect from "../base/CSelect.vue";
 import CTable from "../base/CTable.vue";
 import CButton from "../base/CButton.vue";
 import {computed, ref} from "vue";
+import {clearValuesOfInvoice} from "../../utils/helper.js";
 
 
 const store = useInvoiceStore()
 const props = defineProps(['invoiceID', 'inEditView'])
 
-const checkedStatus = computed(() => store.checkedStatus)
 const emit = defineEmits(["closeDeleteModal", "closeModal"]);
 const invoice = props.inEditView ? store.getInvoice(props.invoiceID) : store.getEmptyInvoice();
 
 function saveInvoice() {
+  invoice.status = "pending"
   if (props.inEditView) {
     store.replaceInvoice(invoice.id, invoice)
   } else {
     store.addInvoice(invoice)
   }
   emit("closeModal")
-  console.log("empty invoice: ", invoice)
-  console.log("filter store: ", store.filterByStatus(checkedStatus.value))
 }
 
 
@@ -38,6 +37,8 @@ function closeModal() {
   <form
       @submit.prevent="saveInvoice"
       class="box-border w-2/5 flex flex-col h-full p-8 gap-6  bg-white dark:bg-bgDark rounded-r-3xl overflow-scroll">
+
+    <!--  IF   -->
     <div v-if="inEditView" class="flex flex-col h-fit gap-12 overflow-visible ">
       <p class="text-3xl font-bold">
         <span class="text-light3 font-bold text-3xl">#</span>{{ invoice.id }}
@@ -87,6 +88,8 @@ function closeModal() {
         </div>
       </div>
     </div>
+
+    <!--  ELSE  -->
     <div v-else class="flex flex-col h-fit gap-12 overflow-visible ">
       <p class="text-3xl font-bold">
         <span class="text-light3 font-bold text-3xl">#</span>{{ invoice.id }}
@@ -138,7 +141,7 @@ function closeModal() {
     </div>
     <div class="buttons flex w-full content-end items-end">
       <div class="flex ml-auto gap-4 w-fit self-end">
-        <CButton class="cancel-button" @click="closeModal" edit text="Cancel"/>
+        <CButton class="cancel-button" @click="closeModal()" edit text="Cancel"/>
         <CButton type="submit" primary text="Save Changes"/>
       </div>
     </div>

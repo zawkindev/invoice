@@ -63,10 +63,6 @@ function closeModal(e) {
   }
 }
 
-function saveInvoice() {
-  isSideModalOpen.value = false;
-}
-
 function navigateToInvoice() {
   if (!props.editPage) {
     router.push({

@@ -47,7 +47,7 @@ function closeModal(e) {
   <NoData v-else/>
 
   <div
-      v-show="isSideModalOpen"
+      v-if="isSideModalOpen"
       class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
       @click="closeModal"
   >

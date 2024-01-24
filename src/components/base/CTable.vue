@@ -40,11 +40,11 @@ console.log(invoiceItems)
     </div>
     <div v-if="inModal" v-for="(item, index) in invoiceItems" class="item flex flex-row w-full gap-6">
       <div class="flex flex-1">
-        <CInput :value="item.name" @input-value="(value)=>invoice.items[index].name=value"/>
+        <CInput placeholder="Item Name" :value="item.name" @input-value="(value)=>invoice.items[index].name=value"/>
       </div>
       <div class="flex flex-row flex-1 justify-between items-center gap-6">
-        <CInput type="number" :value="item.qty" @input-value="(value)=>invoice.items[index].qty=value"/>
-        <CInput type="number" :value="item.price" @input-value="(value)=>invoice.items[index].price=value"/>
+        <CInput placeholder="QTY" type="number" :value="item.qty" @input-value="(value)=>invoice.items[index].qty=value"/>
+        <CInput placeholder="Price" type="number" :value="item.price" @input-value="(value)=>invoice.items[index].price=value"/>
         <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
       </div>
     </div>
