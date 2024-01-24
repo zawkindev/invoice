@@ -46,3 +46,24 @@ export function clearValuesOfInvoice(invoice) {
 
   return invoice;
 }
+
+export function deepClone(obj) {
+  if (obj === null || typeof obj !== 'object') {
+    return obj; // Return primitives as-is
+  }
+
+  if (Array.isArray(obj)) {
+    // Clone arrays
+    return obj.map((item) => deepClone(item));
+  }
+
+  // Clone objects
+  const clonedObj = {};
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      clonedObj[key] = deepClone(obj[key]);
+    }
+  }
+
+  return clonedObj;
+}

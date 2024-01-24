@@ -5,13 +5,17 @@ import DatePicker from "../common/DatePicker.vue";
 import CSelect from "../base/CSelect.vue";
 import CTable from "../base/CTable.vue";
 import CButton from "../base/CButton.vue";
+import {ref} from "vue";
+import {deepClone} from "../../utils/helper.js";
 
 
 const store = useInvoiceStore()
 const props = defineProps(['invoiceID', 'inEditView'])
 
 const emit = defineEmits(["saveInvoice", "closeDeleteModal"]);
-const invoice = props.inEditView ? store.getInvoice(props.invoiceID) : store.getEmptyInvoice()
+const invoiceInStore = props.inEditView?store.getInvoice(props.invoiceID):store.getEmptyInvoice();
+const invoice = ref(deepClone(invoiceInStore))
+
 
 </script>
 

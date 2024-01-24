@@ -104,7 +104,7 @@ function getModalClass() {
   <div
       :class="{'cursor-pointer hover:bg-gray-100 dark:hover:bg-dark2':!editPage}"
       @click="navigateToInvoice(invoice.id)"
-      class="flex flex-row justify-between items-center  w-full h-fit py-8 px-8 bg-white shadow-md rounded-lg  dark:bg-dark1"
+      class="cursor-pointer flex flex-row justify-between items-center  w-full h-fit py-8 px-8 bg-white shadow-md rounded-lg  dark:bg-dark1"
   >
     <!--  IF  -->
 

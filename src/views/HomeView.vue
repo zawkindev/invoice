@@ -19,6 +19,7 @@ const invoiceCount = computed(()=>store.filterByStatus(checkedStatus.value).leng
 const isSideModalOpen = ref(false);
 function openSideModal() {
   isSideModalOpen.value = true;
+  console.log("new invoice modal")
 }
 
 
@@ -47,7 +48,7 @@ function saveInvoice(){
   <NoData v-else />
 
   <div
-      v-show="isSideModalOpen"
+      v-if="isSideModalOpen"
       class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
       @click="closeModal"
   >

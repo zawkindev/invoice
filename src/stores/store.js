@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import {clearValuesOfInvoice, generateID} from "../utils/helper.js";
+import {clearValuesOfInvoice, deepClone, generateID} from "../utils/helper.js";
 
 const invoicesData = {
   "invoices": [
@@ -91,7 +91,7 @@ export const useInvoiceStore = defineStore("invoices", () => {
   }
 
   function getEmptyInvoice(){
-   const newInvoice = clearValuesOfInvoice(invoicesData.invoices[0])
+   const newInvoice = invoicesData.invoices[0]
    newInvoice.id = generateID()
    return newInvoice
   }

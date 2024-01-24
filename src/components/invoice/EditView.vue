@@ -17,6 +17,10 @@ console.log("ID: ", invoice)
 function goBack() {
   if (window.history.length > 2) {
     router.go(-1)
+  } else {
+    router.push({
+      name: "home",
+    });
   }
 }
 
@@ -36,7 +40,8 @@ function goBack() {
       />
       <p class="font-semibold text-2xl">Go back</p>
     </div>
-    <WideCard @mark-as-paid="store.markAs(invoiceID,'paid')" @mark-as-pending="store.markAs(invoiceID,'pending')" edit-page :invoice-i-d="invoice.id"/>
+    <WideCard @mark-as-paid="store.markAs(invoiceID,'paid')" @mark-as-pending="store.markAs(invoiceID,'pending')"
+              edit-page :invoice-i-d="invoice.id"/>
 
     <!--   INFO START     -->
 
