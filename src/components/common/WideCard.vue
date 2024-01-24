@@ -45,7 +45,9 @@ function closeModal(e) {
     isSideModalOpen.value = false;
     isDeleteModalOpen.value = false;
   }
-  router.go(-1)
+  if (route.fullPath.includes("/edit")) {
+    router.go(-1)
+  }
 }
 
 function saveInvoice() {
@@ -70,7 +72,7 @@ function navigateToHome() {
 function navigateToSideModal() {
   router.push({
     name: "sideModal",
-    params: { id: currentId },
+    params: {id: currentId},
   });
 }
 
@@ -137,7 +139,6 @@ function deleteInvoice() {
     </div>
   </div>
   <div
-      v-if="editPage"
       v-show="isSideModalOpen"
       class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
       @click="closeModal"
