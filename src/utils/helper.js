@@ -33,3 +33,16 @@ export function generateID() {
   // Combine letters and numbers
   return `${letters}${numbers}`;
 }
+
+export function clearValuesOfInvoice(invoice) {
+  // Ensure the provided argument is an object
+  if (invoice && typeof invoice === 'object') {
+    // Iterate through each key in the provided invoice
+    for (const key in invoice) {
+      // Set the value of the key to null
+      invoice[key] = '';
+    }
+  }
+
+  return invoice;
+}

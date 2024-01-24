@@ -11,8 +11,7 @@ const store = useInvoiceStore()
 const props = defineProps(['invoiceID', 'inEditView'])
 
 const emit = defineEmits(["saveInvoice", "closeDeleteModal"]);
-const invoice = store.getInvoice(props.invoiceID)
-console.log(props.invoiceID)
+const invoice = props.inEditView ? store.getInvoice(props.invoiceID) : store.getEmptyInvoice()
 
 </script>
 

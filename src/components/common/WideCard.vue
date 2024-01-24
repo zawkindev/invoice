@@ -102,13 +102,14 @@ function getModalClass() {
 
 <template>
   <div
+      :class="{'cursor-pointer hover:bg-gray-100 dark:hover:bg-dark2':!editPage}"
       @click="navigateToInvoice(invoice.id)"
-      class="cursor-pointer flex flex-row justify-between items-center  w-full h-fit py-8 px-8 bg-white shadow-md rounded-lg dark:bg-dark1"
+      class="flex flex-row justify-between items-center  w-full h-fit py-8 px-8 bg-white shadow-md rounded-lg  dark:bg-dark1"
   >
     <!--  IF  -->
 
     <div
-        v-if="props.editPage"
+        v-if="editPage"
         class="flex flex-row justify-between w-full gap-4 items-center"
     >
       <div class="flex flex-row items-center gap-6 w-fit">
@@ -161,6 +162,4 @@ function getModalClass() {
     <Component :is="currentComponent" @close-modal="closeModal" @delete-invoice="deleteInvoice"
                @save-invoice="saveInvoice" :invoice-i-d="invoice.id" in-edit-view="true"></Component>
   </div>
-
-
 </template>

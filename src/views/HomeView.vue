@@ -47,11 +47,10 @@ function saveInvoice(){
   <NoData v-else />
 
   <div
-      v-else
       v-show="isSideModalOpen"
       class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
       @click="closeModal"
   >
-    <SideModal :invoice-i-d="generateID()"/>
+    <SideModal/>
   </div>
 </template>

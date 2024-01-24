@@ -14,7 +14,7 @@ function navigateToHome() {
 </script>
 
 <template>
-  <div class="fixed left-0 z-50 top-0 h-screen dark:bg-bgDark">
+  <div class="fixed left-0 z-50 top-0 h-full dark:bg-bgDark">
     <div
       class="flex flex-col justify-between w-28 bg-dark1 h-full rounded-r-3xl"
     >

@@ -1,5 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
+import {clearValuesOfInvoice, generateID} from "../utils/helper.js";
 
 const invoicesData = {
   "invoices": [
@@ -89,6 +90,12 @@ export const useInvoiceStore = defineStore("invoices", () => {
     return invoices.value.find((item) => item.id === invoiceID);
   }
 
+  function getEmptyInvoice(){
+   const newInvoice = clearValuesOfInvoice(invoicesData.invoices[0])
+   newInvoice.id = generateID()
+   return newInvoice
+  }
+
   function getInvoiceIndex(invoiceID) {
     return invoices.value.findIndex(el => el.id === invoiceID)
   }
@@ -119,5 +126,5 @@ export const useInvoiceStore = defineStore("invoices", () => {
   }
 
 
-  return {invoices, checkedStatus, getInvoicesList, getInvoice, getInvoiceItems, deleteInvoice, markAs, filterByStatus};
+  return {invoices, checkedStatus, getInvoicesList, getInvoice, getEmptyInvoice, getInvoiceItems, deleteInvoice, markAs, filterByStatus};
 });
