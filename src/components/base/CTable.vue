@@ -2,6 +2,7 @@
 import {useInvoiceStore} from "../../stores/store";
 import {formatMoney} from "../../utils/helper";
 import CInput from "./CInput.vue";
+import {watch} from "vue";
 
 const props = defineProps(["invoiceID", "inModal"]);
 
@@ -9,6 +10,13 @@ const props = defineProps(["invoiceID", "inModal"]);
 const store = useInvoiceStore();
 const invoice = store.getInvoice(props.invoiceID) || store.emptyInvoice
 const invoiceItems = invoice.items;
+
+watch(invoice, (newData) => {
+  newData.items.forEach(item => {
+    item.total = (parseFloat(item.qty) || 0) * (parseFloat(item.price) || 0)
+  })
+})
+
 console.log(invoiceItems)
 </script>
 
@@ -31,8 +39,8 @@ console.log(invoiceItems)
         <CInput :value="item.name" @input-value="(value)=>invoice.items[index].name=value"/>
       </div>
       <div class="flex flex-row flex-1 justify-between items-center gap-6">
-        <CInput :value="item.qty" @input-value="(value)=>invoice.items[index].qty=value"/>
-        <CInput :value="item.price" @input-value="(value)=>invoice.items[index].price=value"/>
+        <CInput type="number" :value="item.qty" @input-value="(value)=>invoice.items[index].qty=value"/>
+        <CInput type="number" :value="item.price" @input-value="(value)=>invoice.items[index].price=value"/>
         <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
       </div>
     </div>

@@ -7,6 +7,7 @@ export function formatDate(date) {
   return ` ${day} ${month.slice(0, 3)} ${year}`;
 }
 
+
 export function formatMoney(amount) {
   const amountString = amount.toString();
   if (amountString.includes(".")) {
