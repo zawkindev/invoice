@@ -16,7 +16,7 @@ function getClasses() {
 <template>
   <div
     :class="getClasses()"
-    class="flex flex-row w-fit font-bold items-center justify-center gap-2 py-3 px-5 rounded-md bg-opacity-10"
+    class="flex flex-row font-bold items-center justify-center gap-2 py-3 px-5 rounded-md bg-opacity-10"
   >
     <svg
       class="h-4 w-4"

@@ -28,13 +28,21 @@ const currentId = route.params.id;
 const isSideModalOpen = ref(false);
 const isDeleteModalOpen = ref(false);
 
+const currentComponent = ref(null);
+
+const isModalOpen = ref(false);
+
 function openSideModal() {
   isSideModalOpen.value = true;
+  isModalOpen.value = true
+  currentComponent.value = SideModal
   navigateToSideModal()
 }
 
 function openDeleteModal() {
-  isDeleteModalOpen.value = true;
+  isModalOpen.value = true
+  isDeleteModalOpen.value = true
+  currentComponent.value = DeleteModal
 }
 
 function closeModal(e) {
@@ -44,6 +52,7 @@ function closeModal(e) {
   ) {
     isSideModalOpen.value = false;
     isDeleteModalOpen.value = false;
+    isModalOpen.value = false;
   }
   if (route.fullPath.includes("/edit")) {
     router.go(-1)
@@ -81,6 +90,14 @@ function deleteInvoice() {
   store.deleteInvoice(invoice.value.id)
   navigateToHome();
 }
+
+function getModalClass() {
+  return {
+    'flex left-0 justify-center items-center bg-opacity-40': isDeleteModalOpen.value,
+    'left-28 bg-opacity-40': isSideModalOpen.value
+  }
+}
+
 </script>
 
 <template>
@@ -138,24 +155,12 @@ function deleteInvoice() {
       </div>
     </div>
   </div>
-  <div
-      v-show="isSideModalOpen"
-      class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
-      @click="closeModal"
-  >
-    <router-view name="modal" @save-invoice="saveInvoice" :invoice-i-d="invoice.id" in-edit-view="true">
+  <div v-show="isModalOpen"
+       :class="getModalClass()"
+       class="overlay fixed top-0 z-50 w-screen h-screen bg-black bg-opacity-40'" @click="closeModal">
+    <Component :is="currentComponent" @close-modal="closeModal" @delete-invoice="deleteInvoice"
+               @save-invoice="saveInvoice" :invoice-i-d="invoice.id" in-edit-view="true"></Component>
+  </div>
 
-    </router-view>
-  </div>
-  <div
-      v-show="isDeleteModalOpen"
-      class="overlay fixed flex justify-center items-center left-0 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
-      @click="closeModal"
-  >
-    <DeleteModal
-        :invoice-i-d="invoice.id"
-        @close-modal="closeModal"
-        @delete-invoice="deleteInvoice"
-    />
-  </div>
+
 </template>
