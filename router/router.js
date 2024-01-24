@@ -6,7 +6,7 @@ const routes = [
   {
     path: "/:id", name: "invoice", component: () => import("../src/components/invoice/EditView.vue"), children: [
       {
-        path: '/edit', name:"sideModal", components: {
+        path: 'edit', name:"sideModal", components: {
           modal: () => import("../src/components/modal/SideModal.vue")
         }
       }

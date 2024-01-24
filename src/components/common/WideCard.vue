@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from "vue";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {formatDate, generateID} from "../../utils/helper";
 
 
@@ -20,9 +20,10 @@ const store = useInvoiceStore()
 const emit = defineEmits(['deleteInvoice', 'markAsPaid', "markAsPending", "saveInvoice"])
 
 const router = useRouter();
+const route = useRoute()
 
 const invoice = store.getInvoice(props.invoiceID);
-
+const currentId = route.params.id;
 
 const isSideModalOpen = ref(false);
 const isDeleteModalOpen = ref(false);
@@ -69,7 +70,7 @@ function navigateToHome() {
 function navigateToSideModal() {
   router.push({
     name: "sideModal",
-    params:{id:invoice.id}
+    params: { id: currentId },
   });
 }
 
