@@ -71,7 +71,7 @@ function goBack() {
       <div class="flex flex-row justify-between">
         <div class="flex flex-col justify-between">
           <div class="flex flex-col gap-3">
-            <p class="text-light3 dark:text-light1 font-semibold text-lg">
+            <p class="text-light3 dark:text-light1 text-lg">
               Invoice Date
             </p>
             <p class="text-2xl font-bold invoiceDate">
@@ -79,7 +79,7 @@ function goBack() {
             </p>
           </div>
           <div class="flex flex-col gap-3">
-            <p class="text-light3 dark:text-light1 font-semibold text-lg">
+            <p class="text-light3 dark:text-light1 text-lg">
               Payment Due
             </p>
             <p class="text-2xl font-bold">
@@ -88,7 +88,7 @@ function goBack() {
           </div>
         </div>
         <div class="flex flex-col billTo gap-3">
-          <p class="text-light3 dark:text-light1 font-semibold text-lg">
+          <p class="text-light3 dark:text-light1  text-lg">
             Bill To
           </p>
           <div>
@@ -112,7 +112,7 @@ function goBack() {
           </div>
         </div>
         <div class="flex flex-col sendTo gap-3">
-          <p class="text-light3 dark:text-light1 font-semibold text-lg">
+          <p class="text-light3 dark:text-light1  text-lg">
             Send To
           </p>
           <p class="text-2xl font-bold">
