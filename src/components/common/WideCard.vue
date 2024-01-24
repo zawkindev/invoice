@@ -29,6 +29,7 @@ const isDeleteModalOpen = ref(false);
 
 function openSideModal() {
   isSideModalOpen.value = true;
+  navigateToSideModal()
 }
 
 function openDeleteModal() {
@@ -43,9 +44,10 @@ function closeModal(e) {
     isSideModalOpen.value = false;
     isDeleteModalOpen.value = false;
   }
+  router.go(-1)
 }
 
-function saveInvoice(){
+function saveInvoice() {
   isSideModalOpen.value = false;
 }
 
@@ -61,6 +63,13 @@ function navigateToInvoice() {
 function navigateToHome() {
   router.push({
     name: "home",
+  });
+}
+
+function navigateToSideModal() {
+  router.push({
+    name: "sideModal",
+    params:{id:invoice.id}
   });
 }
 
@@ -132,7 +141,9 @@ function deleteInvoice() {
       class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
       @click="closeModal"
   >
-    <SideModal @save-invoice="saveInvoice" :invoice-i-d="invoice.id" in-edit-view="true"/>
+    <router-view name="modal" @save-invoice="saveInvoice" :invoice-i-d="invoice.id" in-edit-view="true">
+
+    </router-view>
   </div>
   <div
       v-show="isDeleteModalOpen"
