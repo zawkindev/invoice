@@ -58,7 +58,6 @@ function closeModal(e) {
       router.go(-1)
     }
   } else {
-
     isModalOpen.value = false
   }
 }

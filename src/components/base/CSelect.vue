@@ -20,15 +20,15 @@ const selectOption = (option) => {
 };
 
 const selectedValue = ref(options.value[0]); // Initial value
-const isOpen = ref(false);
+const isSelectOpen = ref(false);
 </script>
 
 <template>
-  <div class="flex flex-col w-full relative gap-2">
+  <div class="cselect flex flex-col w-full relative gap-2">
     <p class="capitalize font-semibold  text-light3 dark:text-light1">{{ label }}</p>
-  <button
-    :class="{ 'border-light3': isOpen }"
-    @click="isOpen = !isOpen"
+  <div
+    :class="{ 'border-light3': isSelectOpen }"
+    @click="isSelectOpen = !isSelectOpen"
     class="relative w-full py-4 px-5 text-left font-normal border rounded-md shadow-sm dark:bg-dark1 dark:border-dark2 dark:text-white"
   >
     <div
@@ -53,7 +53,7 @@ const isOpen = ref(false);
       </svg>
     </div>
     <div
-      v-show="isOpen"
+      v-if="isSelectOpen"
       class="absolute left-0 z-10 mt-8 w-full bg-white shadow-2xl rounded-lg ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none dark:bg-dark1 dark:border-dark2 dark:text-white"
     >
       <div
@@ -65,6 +65,6 @@ const isOpen = ref(false);
         {{ option.label }}
       </div>
     </div>
-  </button>
+  </div>
   </div>
 </template>

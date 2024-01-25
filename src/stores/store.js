@@ -114,6 +114,7 @@ export const useInvoiceStore = defineStore("invoices", () => {
   const invoices = ref(invoicesData.invoices);
   const emptyInvoice = ref(invoicesData.emptyInvoice)
   const checkedStatus = ref('status')
+  const isDarkTheme = ref(true)
 
   function getInvoicesList() {
     return invoices
@@ -179,6 +180,7 @@ export const useInvoiceStore = defineStore("invoices", () => {
     invoices,
     emptyInvoice,
     checkedStatus,
+    isDarkTheme,
     getInvoicesList,
     getInvoice,
     getEmptyInvoice,
