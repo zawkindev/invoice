@@ -9,7 +9,7 @@ const invoicesData = {
       "date": "2006-04-22",
       "fullName": "Alex Grim",
       "email": "alexgrim@gmail.com",
-      "money": 102.04,
+      "amount": "400",
       "status": "pending",
       "serviceType": "Graphic Design",
       "invoiceDate": "2001-03-23",
@@ -34,14 +34,13 @@ const invoicesData = {
           "total": "200"
         }
       ],
-      "amount": "400"
     },
     {
       "id": "AB5678",
       "date": "2022-05-15",
       "fullName": "Emma Smith",
+      "amount": "850",
       "email": "emma.smith@gmail.com",
-      "money": 150.75,
       "status": "paid",
       "serviceType": "Web Development",
       "invoiceDate": "2022-04-10",
@@ -72,7 +71,6 @@ const invoicesData = {
           "total": "50"
         }
       ],
-      "amount": "850"
     }
   ],
   "emptyInvoice": {
@@ -80,7 +78,7 @@ const invoicesData = {
     "date": "",
     "fullName": "",
     "email": "",
-    "money": "",
+    "amount": "",
     "status": "",
     "serviceType": "",
     "invoiceDate": "",
@@ -97,15 +95,7 @@ const invoicesData = {
       "postalCode": "",
       "country": ""
     },
-    "items": [
-      {
-        "name": "",
-        "qty": "",
-        "price": "",
-        "total": ""
-      }
-    ],
-    "amount": ""
+    "items": [],
   }
 };
 
@@ -128,6 +118,15 @@ export const useInvoiceStore = defineStore("invoices", () => {
     emptyInvoice.value.id = generateID()
     emptyInvoice.value.status = 'draft'
     emptyInvoice.value.money = 0
+    if (emptyInvoice.value.items.length === 0) {
+      emptyInvoice.value.items.push({
+        "name": "",
+        "price": "",
+        "qty": "",
+        "total": ""
+      })
+    }
+
     return emptyInvoice.value
   }
 
@@ -154,7 +153,7 @@ export const useInvoiceStore = defineStore("invoices", () => {
     if (targetStatus === 'status') {
       return invoices.value
     }
-    console.log("filtered: ",invoices.value.filter(item => item.status === targetStatus.toLowerCase()))
+    console.log("filtered: ", invoices.value.filter(item => item.status === targetStatus.toLowerCase()))
     return invoices.value.filter(item => item.status === targetStatus.toLowerCase())
   }
 

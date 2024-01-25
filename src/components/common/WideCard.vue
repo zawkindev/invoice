@@ -142,7 +142,7 @@ function getModalClass() {
       <div
           class="flex flex-row w-full items-center justify-end gap-8"
       >
-        <p class="text-2xl font-bold">£&nbsp;{{ invoice.money }}</p>
+        <p class="text-2xl font-bold">£&nbsp;{{ invoice.amount }}</p>
         <div class="flex flex-row gap-3 items-center">
           <Badge :status="invoice.status"/>
           <img

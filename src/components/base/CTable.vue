@@ -17,8 +17,7 @@ watch(invoice, (newData) => {
     item.total = (parseFloat(item.qty) || 0) * (parseFloat(item.price) || 0)
     invoiceAmount += item.total
   })
-  newData.money = invoiceAmount
-
+  newData.amount = invoiceAmount
 })
 
 console.log(invoiceItems)

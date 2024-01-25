@@ -5,8 +5,6 @@ import DatePicker from "../common/DatePicker.vue";
 import CSelect from "../base/CSelect.vue";
 import CTable from "../base/CTable.vue";
 import CButton from "../base/CButton.vue";
-import {computed, ref} from "vue";
-import {clearValuesOfInvoice} from "../../utils/helper.js";
 
 
 const store = useInvoiceStore()
