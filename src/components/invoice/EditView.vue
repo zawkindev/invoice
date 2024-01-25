@@ -9,7 +9,7 @@ import CTable from "../base/CTable.vue";
 const store = useInvoiceStore();
 const router = useRouter();
 const route = useRoute()
-const invoice = store.getInvoice(route.params.id)
+const invoice = computed(()=>store.getInvoice(route.params.id))
 
 console.log("ID: ", invoice)
 
@@ -126,7 +126,7 @@ function goBack() {
       </div>
       <div class="rounded-t-lg w-full h-full bg-light0 dark:bg-dark2">
         <div class="p-8">
-          <CTable :invoiceID="invoice.id"/>
+          <CTable :invoiceID="invoice.id" in-edit-view="true"/>
         </div>
         <div
             class="flex flex-row rounded-b-lg justify-between items-center bg-dark3 p-8 dark:bg-light4"

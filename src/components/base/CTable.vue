@@ -5,14 +5,25 @@ import CInput from "./CInput.vue";
 import {watch} from "vue";
 import CButton from "./CButton.vue";
 
-const props = defineProps(["invoiceID", "inModal"]);
+const props = defineProps(["invoiceID", "inModal", "inEditView"]);
 
 
 const store = useInvoiceStore();
-const invoice = store.getInvoice(props.invoiceID) || store.emptyInvoice
+// const invoice = store.getEditingInvoice(props.invoiceID) || store.emptyInvoice
+// const invoice = props.inEditView ? store.editingInvoice : store.getEmptyInvoice();
+let invoice;
+if (props.inEditView) {
+  if (props.inModal) {
+    invoice = store.editingInvoice
+  } else {
+    invoice = store.getInvoice(props.invoiceID)
+  }
+} else {
+  invoice = store.emptyInvoice
+}
 const invoiceItems = invoice.items;
 
-function createNewItem(){
+function createNewItem() {
   createNewInvoiceItem(invoiceItems)
 }
 
@@ -42,17 +53,22 @@ console.log(invoiceItems)
         <p class="text-light3 dark:text-light1 font-semibold text-lg">Total</p>
       </div>
     </div>
+
+    <!--    IF    -->
     <div v-if="inModal" v-for="(item, index) in invoiceItems" class="item flex flex-row w-full gap-6">
       <div class="flex flex-1">
         <CInput placeholder="Item Name" :value="item.name" @input-value="(value)=>invoice.items[index].name=value"/>
       </div>
       <div class="flex flex-row flex-1 justify-between items-center gap-6">
-        <CInput placeholder="QTY" type="number" :value="item.qty" @input-value="(value)=>invoice.items[index].qty=value"/>
-        <CInput placeholder="Price" type="number" :value="item.price" @input-value="(value)=>invoice.items[index].price=value"/>
+        <CInput placeholder="QTY" type="number" :value="item.qty"
+                @input-value="(value)=>invoice.items[index].qty=value"/>
+        <CInput placeholder="Price" type="number" :value="item.price"
+                @input-value="(value)=>invoice.items[index].price=value"/>
         <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
       </div>
     </div>
 
+    <!--    ELSE    -->
     <div v-else v-for="item in invoiceItems" class="item flex flex-row w-full">
       <div class="flex flex-1">
         <p class="font-bold text-xl text-wrap">
@@ -65,6 +81,6 @@ console.log(invoiceItems)
         <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
       </div>
     </div>
-    <CButton v-if="inModal" @click="createNewItem" edit text="Create New Item" />
+    <CButton v-if="inModal" @click="createNewItem" edit text="Create New Item"/>
   </div>
 </template>

@@ -11,7 +11,7 @@ const store = useInvoiceStore()
 const props = defineProps(['invoiceID', 'inEditView'])
 
 const emit = defineEmits(["closeDeleteModal", "closeModal"]);
-const invoice = props.inEditView ? store.getInvoice(props.invoiceID) : store.getEmptyInvoice();
+const invoice = props.inEditView ? store.getEditingInvoice(props.invoiceID) : store.getEmptyInvoice();
 
 function saveInvoice() {
   invoice.status = "pending"
@@ -82,7 +82,7 @@ function closeModal() {
 
         <div id="bill-from" class="flex flex-col w-full gap-6">
           <p class="font-bold text-primary">Item list</p>
-          <CTable in-modal="true" :invoiceID="invoice.id"/>
+          <CTable in-edit-view="true" in-modal="true" :invoiceID="invoice.id"/>
         </div>
       </div>
     </div>

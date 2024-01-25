@@ -103,6 +103,7 @@ const invoicesData = {
 export const useInvoiceStore = defineStore("invoices", () => {
   const invoices = ref(invoicesData.invoices);
   const emptyInvoice = ref(invoicesData.emptyInvoice)
+  const editingInvoice = ref('')
   const checkedStatus = ref('status')
   const isDarkTheme = ref(true)
 
@@ -124,6 +125,11 @@ export const useInvoiceStore = defineStore("invoices", () => {
     }
 
     return emptyInvoice.value
+  }
+
+  function getEditingInvoice(invoiceID) {
+    editingInvoice.value = invoices.value.find((item) => item.id === invoiceID);
+    return editingInvoice.value
   }
 
   function getInvoiceIndex(invoiceID) {
@@ -168,18 +174,21 @@ export const useInvoiceStore = defineStore("invoices", () => {
 
   function clearEmptyInvoice() {
     emptyInvoice.value = clearValuesOfInvoice(emptyInvoice.value)
+    editingInvoice.value = clearValuesOfInvoice(editingInvoice.value)
   }
 
 
   return {
     invoices,
     emptyInvoice,
+    editingInvoice,
     checkedStatus,
     isDarkTheme,
     getInvoicesList,
     getInvoice,
     getEmptyInvoice,
     getInvoiceItems,
+    getEditingInvoice,
     addInvoice,
     deleteInvoice,
     replaceInvoice,
