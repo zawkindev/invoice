@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
+import {cloneDeep} from 'lodash';
 import {ref} from "vue";
-import {clearValuesOfInvoice, createNewInvoiceItem, deepClone, generateID} from "../utils/helper.js";
+import {clearValuesOfInvoice, createNewInvoiceItem, generateID} from "../utils/helper.js";
 
 const invoicesData = {
   "invoices": [
@@ -83,117 +84,124 @@ const invoicesData = {
     "serviceType": "",
     "invoiceDate": "",
     "paymentDue": "",
-    "buyer": {
-      "address": "",
-      "city": "",
-      "postalCode": "",
-      "country": ""
-    },
-    "seller": {
-      "address": "",
-      "city": "",
-      "postalCode": "",
-      "country": ""
-    },
+    "buyer": "",
+    "seller": "",
     "items": [],
   }
 };
 
 
 export const useInvoiceStore = defineStore("invoices", () => {
-  const invoices = ref(invoicesData.invoices);
-  const emptyInvoice = ref(invoicesData.emptyInvoice)
-  const editingInvoice = ref('')
-  const checkedStatus = ref('status')
-  const isDarkTheme = ref(true)
+      const invoices = ref(invoicesData.invoices);
+      const emptyInvoice = ref(invoicesData.emptyInvoice)
+      const editingInvoice = ref('')
+      const checkedStatus = ref('status')
+      const isDarkTheme = ref(true)
 
-  function getInvoicesList() {
-    return invoices
-  }
+      function getInvoicesList() {
+        return invoices
+      }
 
-  function getInvoice(invoiceID) {
-    return invoices.value.find((item) => item.id === invoiceID);
-  }
+      function getInvoice(invoiceID) {
+        return invoices.value.find((item) => item.id === invoiceID);
+      }
 
-  function getEmptyInvoice() {
-    emptyInvoice.value.id = generateID()
-    emptyInvoice.value.status = 'draft'
-    emptyInvoice.value.money = 0
-    if (emptyInvoice.value.items.length === 0) {
-      emptyInvoice.value.items = []
-      createNewInvoiceItem(emptyInvoice.value.items)
+      function getEmptyInvoice() {
+        emptyInvoice.value.id = generateID()
+        emptyInvoice.value.status = 'draft'
+        emptyInvoice.value.money = 0
+        if (emptyInvoice.value.items.length === 0) {
+          emptyInvoice.value.items = []
+          createNewInvoiceItem(emptyInvoice.value.items)
+        }
+        if (emptyInvoice.value.buyer === "") {
+          emptyInvoice.value.buyer = {
+            "address": "",
+            "city": "",
+            "postalCode": "",
+            "country": ""
+          }
+        }
+        if (emptyInvoice.value.seller === "") {
+          emptyInvoice.value.seller = {
+            "address": "",
+            "city": "",
+            "postalCode": "",
+            "country": ""
+          }
+        }
+        return emptyInvoice.value
+      }
+
+      function getEditingInvoice(invoiceID) {
+        editingInvoice.value = cloneDeep(invoices.value.find((item) => item.id === invoiceID));
+        return editingInvoice.value
+      }
+
+      function getInvoiceIndex(invoiceID) {
+        return invoices.value.findIndex(el => el.id === invoiceID)
+      }
+
+      function getInvoiceItems(invoiceID) {
+        const invoice = getInvoice(invoiceID);
+        return invoice.items;
+      }
+
+      function deleteInvoice(invoiceID) {
+        const invoiceIndex = getInvoiceIndex(invoiceID)
+        invoices.value.splice(invoiceIndex, 1)
+      }
+
+      function markAs(invoiceID, statusType) {
+        const invoiceIndex = getInvoiceIndex(invoiceID)
+        invoices.value[invoiceIndex].status = statusType
+      }
+
+      function filterByStatus(targetStatus) {
+        if (targetStatus === 'status') {
+          return invoices.value
+        }
+        console.log("filtered: ", invoices.value.filter(item => item.status === targetStatus.toLowerCase()))
+        return invoices.value.filter(item => item.status === targetStatus.toLowerCase())
+      }
+
+      function replaceInvoice(invoiceID, newInvoice) {
+        const index = getInvoiceIndex(invoiceID)
+        if (index !== -1) {
+          invoices.value.splice(index, 1, cloneDeep(newInvoice));
+          clearEmptyInvoice()
+        }
+      }
+
+      function addInvoice(newInvoice) {
+        invoices.value.push(cloneDeep(newInvoice))
+        clearEmptyInvoice()
+      }
+
+      function clearEmptyInvoice() {
+        emptyInvoice.value = clearValuesOfInvoice(emptyInvoice.value)
+        editingInvoice.value = clearValuesOfInvoice(editingInvoice.value)
+      }
+
+
+      return {
+        invoices,
+        emptyInvoice,
+        editingInvoice,
+        checkedStatus,
+        isDarkTheme,
+        getInvoicesList,
+        getInvoice,
+        getEmptyInvoice,
+        getInvoiceItems,
+        getEditingInvoice,
+        addInvoice,
+        deleteInvoice,
+        replaceInvoice,
+        clearEmptyInvoice,
+        markAs,
+        filterByStatus
+      };
     }
-
-    return emptyInvoice.value
-  }
-
-  function getEditingInvoice(invoiceID) {
-    editingInvoice.value = invoices.value.find((item) => item.id === invoiceID);
-    return editingInvoice.value
-  }
-
-  function getInvoiceIndex(invoiceID) {
-    return invoices.value.findIndex(el => el.id === invoiceID)
-  }
-
-  function getInvoiceItems(invoiceID) {
-    const invoice = getInvoice(invoiceID);
-    return invoice.items;
-  }
-
-  function deleteInvoice(invoiceID) {
-    const invoiceIndex = getInvoiceIndex(invoiceID)
-    invoices.value.splice(invoiceIndex, 1)
-  }
-
-  function markAs(invoiceID, statusType) {
-    const invoiceIndex = getInvoiceIndex(invoiceID)
-    invoices.value[invoiceIndex].status = statusType
-  }
-
-  function filterByStatus(targetStatus) {
-    if (targetStatus === 'status') {
-      return invoices.value
-    }
-    console.log("filtered: ", invoices.value.filter(item => item.status === targetStatus.toLowerCase()))
-    return invoices.value.filter(item => item.status === targetStatus.toLowerCase())
-  }
-
-  function replaceInvoice(invoiceID, newInvoice) {
-    const index = getInvoiceIndex(invoiceID)
-    if (index !== -1) {
-      invoices.value.splice(index, 1, newInvoice);
-      clearEmptyInvoice()
-    }
-  }
-
-  function addInvoice(newInvoice) {
-    invoices.value.push(newInvoice)
-    clearEmptyInvoice()
-  }
-
-  function clearEmptyInvoice() {
-    emptyInvoice.value = clearValuesOfInvoice(emptyInvoice.value)
-    editingInvoice.value = clearValuesOfInvoice(editingInvoice.value)
-  }
-
-
-  return {
-    invoices,
-    emptyInvoice,
-    editingInvoice,
-    checkedStatus,
-    isDarkTheme,
-    getInvoicesList,
-    getInvoice,
-    getEmptyInvoice,
-    getInvoiceItems,
-    getEditingInvoice,
-    addInvoice,
-    deleteInvoice,
-    replaceInvoice,
-    clearEmptyInvoice,
-    markAs,
-    filterByStatus
-  };
-});
+  )
+;

@@ -5,12 +5,12 @@ import {useInvoiceStore} from "../../stores/store";
 import {formatDate, formatMoney} from "../../utils/helper";
 import WideCard from "../common/WideCard.vue";
 import CTable from "../base/CTable.vue";
+import {cloneDeep} from "lodash";
 
 const store = useInvoiceStore();
 const router = useRouter();
 const route = useRoute()
-const invoice = computed(()=>store.getInvoice(route.params.id))
-
+const invoice = computed(() => store.getInvoice(route.params.id))
 console.log("ID: ", invoice)
 
 function goBack() {
@@ -23,11 +23,15 @@ function goBack() {
   }
 }
 
+function changeItems(itemsList){
+  invoice.items = itemsList
+}
+
 
 </script>
 
 <template>
-  <div class="flex flex-col w-full gap-10">
+  <div class="edit-view flex flex-col w-full gap-10">
     <div
         @click="goBack"
         class="flex flex-row w-full justify-start items-center gap-4 cursor-pointer"
@@ -126,7 +130,7 @@ function goBack() {
       </div>
       <div class="rounded-t-lg w-full h-full bg-light0 dark:bg-dark2">
         <div class="p-8">
-          <CTable :invoiceID="invoice.id" in-edit-view="true"/>
+          <CTable @change-items="changeItems" :invoice="invoice" :invoiceID="invoice.id" in-edit-view="true"/>
         </div>
         <div
             class="flex flex-row rounded-b-lg justify-between items-center bg-dark3 p-8 dark:bg-light4"

@@ -2,38 +2,43 @@
 import {useInvoiceStore} from "../../stores/store";
 import {createNewInvoiceItem, formatMoney} from "../../utils/helper";
 import CInput from "./CInput.vue";
-import {watch} from "vue";
+import {computed, watch} from "vue";
 import CButton from "./CButton.vue";
+import {useRoute} from "vue-router";
+import {cloneDeep} from "lodash";
 
-const props = defineProps(["invoiceID", "inModal", "inEditView"]);
-
+const props = defineProps(["invoice","invoiceID", "inModal", "inEditView"]);
+const emit = defineEmits(["changeItems"])
 
 const store = useInvoiceStore();
+const route = useRoute()
 // const invoice = store.getEditingInvoice(props.invoiceID) || store.emptyInvoice
 // const invoice = props.inEditView ? store.editingInvoice : store.getEmptyInvoice();
-let invoice;
-if (props.inEditView) {
-  if (props.inModal) {
-    invoice = store.editingInvoice
-  } else {
-    invoice = store.getInvoice(props.invoiceID)
-  }
-} else {
-  invoice = store.emptyInvoice
-}
-const invoiceItems = invoice.items;
+// let invoice;
+// if (props.inEditView) {
+//   if (props.inModal) {
+//     invoice = cloneDeep(store.editingInvoice)
+//   } else {
+//     // invoice = computed(()=>store.getInvoice(props.invoiceID)
+//     invoice = computed(()=>store.getInvoice(route.params.id))
+//   }
+// } else {
+//   invoice = store.emptyInvoice
+// }
+const invoiceItems = props.invoice.items;
 
 function createNewItem() {
   createNewInvoiceItem(invoiceItems)
 }
 
-watch(invoice, (newData) => {
+watch(props.invoice, (newData) => {
   let invoiceAmount = 0
   newData.items.forEach(item => {
     item.total = (parseFloat(item.qty) || 0) * (parseFloat(item.price) || 0)
     invoiceAmount += item.total
   })
   newData.amount = invoiceAmount
+  emit("changeItems",invoiceItems)
 })
 
 console.log(invoiceItems)

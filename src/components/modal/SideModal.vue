@@ -11,16 +11,21 @@ const store = useInvoiceStore()
 const props = defineProps(['invoiceID', 'inEditView'])
 
 const emit = defineEmits(["closeDeleteModal", "closeModal"]);
-const invoice = props.inEditView ? store.getEditingInvoice(props.invoiceID) : store.getEmptyInvoice();
+const isEditView = document.querySelector(".edit-view") 
+const invoice = isEditView ? store.getEditingInvoice(props.invoiceID) : store.getEmptyInvoice();
 
 function saveInvoice() {
   invoice.status = "pending"
-  if (props.inEditView) {
+  if (isEditView) {
     store.replaceInvoice(invoice.id, invoice)
   } else {
     store.addInvoice(invoice)
   }
   emit("closeModal")
+}
+
+function changeItems(itemsList){
+ invoice.items = itemsList
 }
 
 
@@ -37,7 +42,7 @@ function closeModal() {
       class="box-border w-2/5 flex flex-col h-full p-8 gap-6  bg-white dark:bg-bgDark rounded-r-3xl overflow-scroll">
 
     <!--  IF   -->
-    <div v-if="inEditView" class="flex flex-col h-fit gap-12 overflow-visible ">
+    <div v-if="isEditView" class="flex flex-col h-fit gap-12 overflow-visible ">
       <p class="text-3xl font-bold">
         <span class="text-light3 font-bold text-3xl">#</span>{{ invoice.id }}
       </p>
@@ -82,7 +87,7 @@ function closeModal() {
 
         <div id="bill-from" class="flex flex-col w-full gap-6">
           <p class="font-bold text-primary">Item list</p>
-          <CTable in-edit-view="true" in-modal="true" :invoiceID="invoice.id"/>
+          <CTable :invoice="invoice" @change-items="changeitems" in-edit-view="true" in-modal="true" :invoiceID="invoice.id"/>
         </div>
       </div>
     </div>
@@ -133,7 +138,7 @@ function closeModal() {
 
         <div id="bill-from" class="flex flex-col w-full gap-6">
           <p class="font-bold text-primary">Item list</p>
-          <CTable in-modal="true" :invoiceID="invoice.id"/>
+          <CTable :invoice="invoice" @change-items="changeItems" in-modal="true" :invoiceID="invoice.id"/>
         </div>
       </div>
     </div>
