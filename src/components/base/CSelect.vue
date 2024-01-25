@@ -2,7 +2,8 @@
 import {ref} from "vue";
 
 
-const props = defineProps(['label'])
+const props = defineProps(['label', 'value'])
+const emit = defineEmits(["selectOption"])
 // Define options based on the image content
 const options = ref([
   {value: "net_1_day", label: "Net 1 Day"},
@@ -15,11 +16,11 @@ const selectOption = (option) => {
   const optionIndex = options.value.findIndex(
       (el) => el.value === option.value,
   );
-
   selectedValue.value = options.value[optionIndex];
+  emit("selectOption", selectedValue.value)
 };
 
-const selectedValue = ref(options.value[0]); // Initial value
+const selectedValue = ref(options.value.findIndex((el) => el.value === props.value) || 0); // Initial value
 const isSelectOpen = ref(false);
 </script>
 

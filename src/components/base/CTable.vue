@@ -1,6 +1,6 @@
 <script setup>
 import {useInvoiceStore} from "../../stores/store";
-import {createNewInvoiceItem, formatMoney} from "../../utils/helper";
+import {createNewInvoiceItem, deleteInvoiceItem, formatMoney} from "../../utils/helper";
 import CInput from "./CInput.vue";
 import {computed, watch} from "vue";
 import CButton from "./CButton.vue";
@@ -30,6 +30,7 @@ const invoiceItems = props.invoice.items;
 function createNewItem() {
   createNewInvoiceItem(invoiceItems)
 }
+
 
 watch(props.invoice, (newData) => {
   let invoiceAmount = 0
@@ -70,6 +71,7 @@ console.log(invoiceItems)
         <CInput placeholder="Price" type="number" :value="item.price"
                 @input-value="(value)=>invoice.items[index].price=value"/>
         <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
+        <img src="../../assets/trash.svg" @click.prevent="deleteInvoiceItem(item.id, invoiceItems)">
       </div>
     </div>
 
@@ -86,6 +88,6 @@ console.log(invoiceItems)
         <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
       </div>
     </div>
-    <CButton v-if="inModal" @click="createNewItem" edit text="Create New Item"/>
+    <CButton v-if="inModal" @click.prevent="createNewItem" edit text="Create New Item"/>
   </div>
 </template>

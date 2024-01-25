@@ -29,6 +29,7 @@ const invoicesData = {
       },
       "items": [
         {
+          "id": "KJ2983",
           "name": "Banner Design",
           "qty": "2",
           "price": "200",
@@ -60,12 +61,14 @@ const invoicesData = {
       },
       "items": [
         {
+          "id": "KG7840",
           "name": "Website Redesign",
           "qty": "1",
           "price": "800",
           "total": "800"
         },
         {
+          "id": "TR9872",
           "name": "Hosting Service",
           "qty": "1",
           "price": "50",

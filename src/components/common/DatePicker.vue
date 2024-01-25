@@ -1,7 +1,8 @@
 <script setup>
 import {ref} from "vue";
 
-const props = defineProps(['label'])
+const props = defineProps(['label', 'date'])
+const emit = defineEmits(["selectDate"])
 
 const isOpen = ref(false);
 
@@ -27,6 +28,7 @@ const monthNames = [
 
 const updateSelectedDate = (day) => {
   selectedDate.value = day;
+  emit("selectDate", selectedDate.value)
 };
 
 const getDaysInMonth = (year, month) => {

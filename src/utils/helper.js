@@ -52,9 +52,14 @@ export function deepClone(obj) {
 
 export function createNewInvoiceItem(items) {
   items.push({
+    "id": generateID(),
     "name": "",
     "price": "",
     "qty": "",
     "total": ""
   })
+}
+
+export function deleteInvoiceItem(itemID, itemsList) {
+  itemsList.splice(itemsList.findIndex((el) => el.id === itemID), 1)
 }

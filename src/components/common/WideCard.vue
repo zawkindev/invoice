@@ -62,6 +62,12 @@ function closeModal(e) {
   }
 }
 
+window.addEventListener("click", (e) => {
+  if (e.target.classList.includes(".overlay")) {
+    isModalOpen.value = false
+  }
+})
+
 function navigateToInvoice() {
   if (!props.editPage) {
     router.push({
@@ -85,7 +91,7 @@ function navigateToSideModal() {
 }
 
 function deleteInvoice() {
-  console.log("deleted invoice: ",invoice.id)
+  console.log("deleted invoice: ", invoice.id)
   store.deleteInvoice(invoice.id)
   navigateToHome();
 }
@@ -157,7 +163,6 @@ function getModalClass() {
   </div>
   <div v-show="isModalOpen"
        :class="getModalClass()"
-       @click="closeModal"
        class="overlay fixed top-0 z-50 w-screen h-screen bg-black bg-opacity-40'">
     <Component :is="currentComponent" @close-modal="closeModal" @delete-invoice="deleteInvoice"
                :invoice-i-d="invoice.id" in-edit-view="true">

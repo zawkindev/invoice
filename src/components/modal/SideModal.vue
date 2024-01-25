@@ -11,7 +11,7 @@ const store = useInvoiceStore()
 const props = defineProps(['invoiceID', 'inEditView'])
 
 const emit = defineEmits(["closeDeleteModal", "closeModal"]);
-const isEditView = document.querySelector(".edit-view") 
+const isEditView = document.querySelector(".edit-view")
 const invoice = isEditView ? store.getEditingInvoice(props.invoiceID) : store.getEmptyInvoice();
 
 function saveInvoice() {
@@ -24,8 +24,12 @@ function saveInvoice() {
   emit("closeModal")
 }
 
-function changeItems(itemsList){
- invoice.items = itemsList
+function changeItems(itemsList) {
+  invoice.items = itemsList
+}
+
+function updateDate(date) {
+  invoice.invoiceDate = date
 }
 
 
@@ -78,7 +82,7 @@ function closeModal() {
         </div>
 
         <div class="flex gap-6 w-full h-fit">
-          <DatePicker label="Invoice date"/>
+          <DatePicker @select-date="updateDate" label="Invoice date"/>
           <CSelect @click="(e)=>e.preventDefault()" label="Payment Terms"/>
         </div>
         <CInput label="Project Description" :value="invoice.serviceType"
@@ -87,7 +91,8 @@ function closeModal() {
 
         <div id="bill-from" class="flex flex-col w-full gap-6">
           <p class="font-bold text-primary">Item list</p>
-          <CTable :invoice="invoice" @change-items="changeitems" in-edit-view="true" in-modal="true" :invoiceID="invoice.id"/>
+          <CTable :invoice="invoice" @change-items="changeitems" in-edit-view="true" in-modal="true"
+                  :invoiceID="invoice.id"/>
         </div>
       </div>
     </div>
@@ -129,7 +134,7 @@ function closeModal() {
         </div>
 
         <div class="flex gap-6 w-full h-fit">
-          <DatePicker label="Invoice date"/>
+          <DatePicker @select-date="updateDate" label="Invoice date"/>
           <CSelect label="Payment Terms"/>
         </div>
         <CInput label="Project Description" :placeholder="invoice.serviceType"
@@ -144,7 +149,7 @@ function closeModal() {
     </div>
     <div class="buttons flex w-full content-end items-end">
       <div class="flex ml-auto gap-4 w-fit self-end">
-        <CButton class="cancel-button" @click="closeModal()" edit text="Cancel"/>
+        <CButton class="cancel-button" @click="closeModal" edit text="Cancel"/>
         <CButton type="submit" primary text="Save Changes"/>
       </div>
     </div>
