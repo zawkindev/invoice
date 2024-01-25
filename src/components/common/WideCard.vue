@@ -157,7 +157,8 @@ function getModalClass() {
   </div>
   <div v-show="isModalOpen"
        :class="getModalClass()"
-       class="overlay fixed top-0 z-50 w-screen h-screen bg-black bg-opacity-40'" @click="closeModal">
+       @click="closeModal"
+       class="overlay fixed top-0 z-50 w-screen h-screen bg-black bg-opacity-40'">
     <Component :is="currentComponent" @close-modal="closeModal" @delete-invoice="deleteInvoice"
                :invoice-i-d="invoice.id" in-edit-view="true"></Component>
   </div>

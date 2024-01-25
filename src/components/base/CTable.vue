@@ -1,8 +1,9 @@
 <script setup>
 import {useInvoiceStore} from "../../stores/store";
-import {formatMoney} from "../../utils/helper";
+import {createNewInvoiceItem, formatMoney} from "../../utils/helper";
 import CInput from "./CInput.vue";
 import {watch} from "vue";
+import CButton from "./CButton.vue";
 
 const props = defineProps(["invoiceID", "inModal"]);
 
@@ -10,6 +11,10 @@ const props = defineProps(["invoiceID", "inModal"]);
 const store = useInvoiceStore();
 const invoice = store.getInvoice(props.invoiceID) || store.emptyInvoice
 const invoiceItems = invoice.items;
+
+function createNewItem(){
+  createNewInvoiceItem(invoiceItems)
+}
 
 watch(invoice, (newData) => {
   let invoiceAmount = 0
@@ -60,5 +65,6 @@ console.log(invoiceItems)
         <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
       </div>
     </div>
+    <CButton v-if="inModal" @click="createNewItem" edit text="Create New Item" />
   </div>
 </template>

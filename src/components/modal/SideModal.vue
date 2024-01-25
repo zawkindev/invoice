@@ -74,7 +74,7 @@ function closeModal() {
 
         <div class="flex gap-6 w-full h-fit">
           <DatePicker label="Invoice date"/>
-          <CSelect label="Payment Terms"/>
+          <CSelect @click="(e)=>e.preventDefault()" label="Payment Terms"/>
         </div>
         <CInput label="Project Description" :value="invoice.serviceType"
                 @input-value="(value)=>invoice.serviceType=value"/>
@@ -145,3 +145,38 @@ function closeModal() {
     </div>
   </form>
 </template>
+
+
+<style>
+/* Hide the scrollbar */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #7e88c3 transparent;
+}
+
+/* WebKit browsers */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* WebKit browsers */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+  background-color: transparent;
+}
+
+
+</style>

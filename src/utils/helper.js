@@ -37,11 +37,8 @@ export function generateID() {
 
 export function clearValuesOfInvoice(targetInvoice) {
   const invoice = deepClone(targetInvoice)
-  // Ensure the provided argument is an object
   if (invoice && typeof invoice === 'object') {
-    // Iterate through each key in the provided invoice
     for (const key in invoice) {
-      // Set the value of the key to null
       invoice[key] = '';
     }
   }
@@ -68,4 +65,13 @@ export function deepClone(obj) {
   }
 
   return clonedObj;
+}
+
+export function createNewInvoiceItem(items){
+  items.push({
+    "name": "",
+    "price": "",
+    "qty": "",
+    "total": ""
+  })
 }

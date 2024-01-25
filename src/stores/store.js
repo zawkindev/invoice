@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import {clearValuesOfInvoice, deepClone, generateID} from "../utils/helper.js";
+import {clearValuesOfInvoice, createNewInvoiceItem, deepClone, generateID} from "../utils/helper.js";
 
 const invoicesData = {
   "invoices": [
@@ -119,12 +119,8 @@ export const useInvoiceStore = defineStore("invoices", () => {
     emptyInvoice.value.status = 'draft'
     emptyInvoice.value.money = 0
     if (emptyInvoice.value.items.length === 0) {
-      emptyInvoice.value.items.push({
-        "name": "",
-        "price": "",
-        "qty": "",
-        "total": ""
-      })
+      emptyInvoice.value.items = []
+      createNewInvoiceItem(emptyInvoice.value.items)
     }
 
     return emptyInvoice.value
