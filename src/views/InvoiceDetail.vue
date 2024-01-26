@@ -6,20 +6,74 @@ import {formatDate, formatMoney} from "../utils/helper.js";
 import WideCard from "../components/common/Card.vue";
 import CTable from "../components/base/CTable.vue";
 import {cloneDeep} from "lodash";
+import Card from "../components/common/Card.vue";
+import CButton from "../components/base/CButton.vue";
+import Badge from "../components/common/Badge.vue";
+import SideModal from "../components/modal/SideModal.vue";
+import DeleteModal from "../components/modal/DeleteModal.vue";
+
 
 const store = useInvoiceStore();
 const router = useRouter();
 const route = useRoute()
 const invoice = computed(() => store.getInvoice(route.params.id))
-console.log("ID: ", invoice)
 
-function goBack() {
-    router.push({
-      name: "home",
-    });
+const isSideModalOpen = ref(false);
+const isDeleteModalOpen = ref(false);
+
+const currentComponent = ref(null);
+
+const isModalOpen = ref(false);
+
+function openSideModal() {
+  isSideModalOpen.value = true;
+  isModalOpen.value = true
+  currentComponent.value = SideModal
+  router.push({
+    name: "SideModal",
+    params: {id: currentId},
+  });
 }
 
-function changeItems(itemsList){
+function openDeleteModal() {
+  isModalOpen.value = true
+  isDeleteModalOpen.value = true
+  currentComponent.value = DeleteModal
+}
+
+function closeModal(e) {
+  if (e) {
+    if (
+        !e.target.closest('form')
+    ) {
+      isSideModalOpen.value = false;
+      isDeleteModalOpen.value = false;
+      isModalOpen.value = false;
+    }
+    if (route.fullPath.includes("/edit")) {
+      router.go(-1)
+    }
+  } else {
+    isModalOpen.value = false
+  }
+}
+
+
+function getModalClass() {
+  return {
+    'flex left-0 justify-center items-center bg-opacity-40': isDeleteModalOpen.value,
+    'left-28 bg-opacity-40': isSideModalOpen.value
+  }
+}
+
+
+function goBack() {
+  router.push({
+    name: "Home",
+  });
+}
+
+function changeItems(itemsList) {
   invoice.items = itemsList
 }
 
@@ -39,8 +93,31 @@ function changeItems(itemsList){
       />
       <p class="font-semibold text-2xl">Go back</p>
     </div>
-    <WideCard @mark-as-paid="store.markAs(invoice.id,'paid')" @mark-as-pending="store.markAs(invoice.id,'pending')"
-              edit-page :invoice-i-d="invoice.id"/>
+    <!--    <WideCard @mark-as-paid="store.markAs(invoice.id,'paid')" @mark-as-pending="store.markAs(invoice.id,'pending')"-->
+    <!--              edit-page :invoice-i-d="invoice.id"/>-->
+
+    <Card>
+      <div
+          class="flex flex-row justify-between items-center  w-full h-fit py-8 px-8 bg-white shadow-md rounded-lg  dark:bg-dark1"
+      >
+        <div
+            class="flex flex-row justify-between w-full gap-4 items-center"
+        >
+          <div class="flex flex-row items-center gap-6 w-fit">
+            <p class=" text-[#858BB2] dark:text-light1">Status</p>
+            <Badge :status="invoice.status"/>
+          </div>
+          <div class="flex flex-row w-fit gap-5 items-center">
+            <CButton @click="openSideModal" edit text="Edit"/>
+            <CButton @click="openDeleteModal" danger text="Delete"/>
+            <CButton class="min-w-[171px]" v-if="invoice.status==='pending'" @click="$emit('markAsPaid')" primary
+                     text="Mark as Paid"/>
+            <CButton class="min-w-[171px]" v-if="invoice.status==='paid'" @click="$emit('markAsPending')" primary
+                     text="Mark as Pending"/>
+          </div>
+        </div>
+      </div>
+    </Card>
 
     <!--   INFO START     -->
 
@@ -140,5 +217,14 @@ function changeItems(itemsList){
     </div>
 
     <!--  INFO END    -->
+
+
+    <div v-show="isModalOpen"
+         :class="getModalClass()"
+         class="overlay fixed top-0 z-50 w-screen h-screen bg-black bg-opacity-40'">
+      <Component :is="currentComponent" @close-modal="closeModal" @delete-invoice="deleteInvoice"
+                 :invoice-i-d="invoice.id" in-edit-view="true">
+      </Component>
+    </div>
   </div>
 </template>
