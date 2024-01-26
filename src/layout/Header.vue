@@ -19,9 +19,9 @@ const props = defineProps({
     </div>
     <div class="flex flex-row h-fit items-center">
       <Dropdown/>
-<!--      <router-link :to="{name:'NewModal'}">-->
+      <router-link :to="{name:'AddModal'}">
         <CButton has-icon primary text="New Invoice"/>
-<!--      </router-link>-->
+      </router-link>
     </div>
   </div>
 </template>

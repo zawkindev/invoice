@@ -105,6 +105,7 @@ export const useInvoiceStore = defineStore("invoices", () => {
         return invoices
       }
 
+    console.log(invoices.value)
       function getInvoice(invoiceID) {
         return invoices.value.find((item) => item.id === invoiceID);
       }
@@ -138,6 +139,7 @@ export const useInvoiceStore = defineStore("invoices", () => {
 
       function getEditingInvoice() {
         editingInvoice.value = cloneDeep(invoices.value.find((item) => item.id === invoiceID));
+
         return editingInvoice.value
       }
 
@@ -207,4 +209,4 @@ export const useInvoiceStore = defineStore("invoices", () => {
       };
     }
   )
-;
+

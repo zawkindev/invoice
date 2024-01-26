@@ -1,27 +1,22 @@
 <script setup>
-import {computed, ref} from "vue";
+import {computed, ref, watch, watchEffect} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useInvoiceStore} from "../stores/store.js";
 import {createNewInvoiceItem, formatDate, formatMoney} from "../utils/helper.js";
-import WideCard from "../components/common/Card.vue";
 import CTable from "../components/base/CTable.vue";
-import {cloneDeep} from "lodash";
 import Card from "../components/common/Card.vue";
 import CButton from "../components/base/CButton.vue";
 import Badge from "../components/common/Badge.vue";
-import SideModal from "../components/modal/SideModal.vue";
 import DeleteModal from "../components/modal/DeleteModal.vue";
 import CModal from "../components/modal/CModal.vue";
-import CInput from "../components/base/CInput.vue";
-import DatePicker from "../components/common/DatePicker.vue";
-import CSelect from "../components/base/CSelect.vue";
+
 
 
 const store = useInvoiceStore();
 const router = useRouter();
 const route = useRoute()
+const {invoices} = useInvoiceStore()
 const invoice = computed(() => store.getInvoice(route.params.id))
-console.log(route)
 const isSideModalOpen = ref(false);
 const isDeleteModalOpen = ref(false);
 
@@ -50,7 +45,6 @@ function closeModal(e) {
   //   router.push(id: route.params.id)
   // }
 
-
   isSideModalOpen.value = false;
   isDeleteModalOpen.value = false;
 }
@@ -64,6 +58,18 @@ function goBack() {
 function changeItems(itemsList) {
   invoice.items = itemsList
 }
+
+
+
+watchEffect(() => {
+  if (route.fullPath.includes("/edit")) {
+    document.body.classList.add("overflow-hidden");
+  } else {
+    document.body.classList.remove("overflow-hidden");
+  }
+  console.log(document.body.classList);
+});
+
 
 </script>
 
@@ -197,8 +203,6 @@ function changeItems(itemsList) {
     </div>
 
     <!--  INFO END    -->
-
-
     <!--    <CModal-->
     <!--        v-show="isSideModalOpen"-->
     <!--        class="left-28"-->
@@ -206,60 +210,6 @@ function changeItems(itemsList) {
     <router-view>
 
     </router-view>
-    <!--      <SideModal @close-modal="closeModal" :invoice-i-d="invoice.id" in-edit-view="true">-->
-    <!--        <div class="flex flex-col h-fit gap-12 overflow-visible ">-->
-    <!--          <p class="text-3xl font-bold">-->
-    <!--            <span class="text-light3 font-bold text-3xl">#</span>{{ invoice.id }}-->
-    <!--          </p>-->
-    <!--          <div id="bill-from" class="flex flex-col w-full gap-6">-->
-    <!--            <p class="font-bold text-primary">Bill From</p>-->
-    <!--            <CInput label="Street Address" :value="invoice.seller.address"-->
-    <!--                    @input-value="(value)=>invoice.seller.address=value"/>-->
-    <!--            <div class="flex gap-6 w-full h-fit">-->
-    <!--              <CInput label="City" :value="invoice.seller.city"-->
-    <!--                      @input-value="(value)=>invoice.seller.city=value"/>-->
-    <!--              <CInput label="Post Code" :value="invoice.seller.postalCode"-->
-    <!--                      @input-value="(value)=>invoice.seller.postalCode=value"/>-->
-    <!--              <CInput label="Country" :value="invoice.seller.country"-->
-    <!--                      @input-value="(value)=>invoice.seller.country=value"/>-->
-    <!--            </div>-->
-    <!--          </div>-->
-
-    <!--          <div id="bill-to" class="flex flex-col w-full gap-6">-->
-    <!--            <p class="font-bold text-primary">Bill To</p>-->
-    <!--            <CInput label="Name" :value="invoice.fullName"-->
-    <!--                    @input-value="(value)=>invoice.fullName=value"/>-->
-    <!--            <CInput type="email" label="Client's email" :value="invoice.email"-->
-    <!--                    @input-value="(value)=>invoice.email=value"/>-->
-    <!--            <CInput label="Street Address" :value="invoice.buyer.address"-->
-    <!--                    @input-value="(value)=>invoice.buyer.address=value"/>-->
-    <!--            <div class="flex gap-6 w-full h-fit">-->
-    <!--              <CInput label="City" :value="invoice.buyer.city"-->
-    <!--                      @input-value="(value)=>invoice.buyer.city=value"/>-->
-    <!--              <CInput label="Post Code" :value="invoice.buyer.postalCode"-->
-    <!--                      @input-value="(value)=>invoice.buyer.postalCode=value"/>-->
-    <!--              <CInput label="Country" :value="invoice.buyer.country"-->
-    <!--                      @input-value="(value)=>invoice.buyer.country=value"/>-->
-    <!--            </div>-->
-
-    <!--            <div class="flex gap-6 w-full h-fit">-->
-    <!--              <DatePicker @select-date="updateDate" label="Invoice date"/>-->
-    <!--              <CSelect @click="(e)=>e.preventDefault()" label="Payment Terms"/>-->
-    <!--            </div>-->
-    <!--            <CInput label="Project Description" :value="invoice.serviceType"-->
-    <!--                    @input-value="(value)=>invoice.serviceType=value"/>-->
-
-
-    <!--            <div id="bill-from" class="flex flex-col w-full gap-6">-->
-    <!--              <p class="font-bold text-primary">Item list</p>-->
-    <!--              <CTable :invoice="invoice" @change-items="changeitems" in-edit-view="true" in-modal="true"-->
-    <!--                      :invoiceID="invoice.id"/>-->
-    <!--            </div>-->
-    <!--            <CButton @click="createNewInvoiceItem(invoice.items)" edit text="Create New Item"/>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </SideModal>-->
-    <!--    </CModal>-->
     <CModal
         v-show="isDeleteModalOpen"
         class="flex justify-center items-center left-0"

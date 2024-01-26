@@ -48,23 +48,22 @@ console.log(invoiceItems)
     </div>
 
     <!--    IF    -->
-<!--    <div v-if="inModal" v-for="(item, index) in invoiceItems" class="item flex flex-row w-full gap-6">-->
-<!--      <div class="flex flex-1">-->
-<!--        <CInput placeholder="Item Name" :value="item.name" @input-value="(value)=>invoiceItems[index].name=value"/>-->
-<!--      </div>-->
-<!--      <div class="flex flex-row flex-1 justify-between items-center gap-6">-->
-<!--        <CInput placeholder="QTY" type="number" :value="item.qty"-->
-<!--                @input-value="(value)=>invoiceItems[index].qty=value"/>-->
-<!--        <CInput placeholder="Price" type="number" :value="item.price"-->
-<!--                @input-value="(value)=>invoiceItems[index].price=value"/>-->
-<!--        <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>-->
-<!--        <img src="../../assets/trash.svg" @click.prevent="deleteInvoiceItem(item.id, invoiceItems)">-->
-<!--      </div>-->
-<!--    </div>-->
+    <div v-if="inModal" v-for="(item, index) in invoiceItems" class="item flex flex-row w-full gap-6">
+      <div class="flex flex-1">
+        <CInput placeholder="Item Name" :value="item.name" @input-value="(value)=>invoiceItems[index].name=value"/>
+      </div>
+      <div class="flex flex-row flex-1 justify-between items-center gap-6">
+        <CInput placeholder="QTY" type="number" :value="item.qty"
+                @input-value="(value)=>invoiceItems[index].qty=value"/>
+        <CInput placeholder="Price" type="number" :value="item.price"
+                @input-value="(value)=>invoiceItems[index].price=value"/>
+        <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
+        <img src="../../assets/trash.svg" @click.prevent="deleteInvoiceItem(item.id, invoiceItems)">
+      </div>
+    </div>
 
     <!--    ELSE    -->
-    <slot>
-      <div v-for="item in invoiceItems" class="item flex flex-row w-full">
+      <div v-else v-for="item in invoiceItems" class="item flex flex-row w-full">
         <div class="flex flex-1">
           <p class="font-bold text-xl text-wrap">
             {{ item.name }}
@@ -76,7 +75,6 @@ console.log(invoiceItems)
           <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
         </div>
       </div>
-    </slot>
 
 <!--    <CButton v-if="inModal" @click.prevent="createNewItem" edit text="Create New Item"/>-->
   </div>
