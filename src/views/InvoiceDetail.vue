@@ -1,10 +1,10 @@
 <script setup>
 import {computed, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
-import {useInvoiceStore} from "../../stores/store";
-import {formatDate, formatMoney} from "../../utils/helper";
-import WideCard from "../common/WideCard.vue";
-import CTable from "../base/CTable.vue";
+import {useInvoiceStore} from "../stores/store.js";
+import {formatDate, formatMoney} from "../utils/helper.js";
+import WideCard from "../components/common/Card.vue";
+import CTable from "../components/base/CTable.vue";
 import {cloneDeep} from "lodash";
 
 const store = useInvoiceStore();
@@ -14,13 +14,9 @@ const invoice = computed(() => store.getInvoice(route.params.id))
 console.log("ID: ", invoice)
 
 function goBack() {
-  if (window.history.length > 2) {
-    router.go(-1)
-  } else {
     router.push({
       name: "home",
     });
-  }
 }
 
 function changeItems(itemsList){
@@ -39,7 +35,7 @@ function changeItems(itemsList){
       <img
           class="h-5 w-4 rotate-90"
           alt="back icon"
-          src="../../assets/arrow-up.svg"
+          src="../assets/arrow-up.svg"
       />
       <p class="font-semibold text-2xl">Go back</p>
     </div>

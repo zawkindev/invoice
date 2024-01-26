@@ -1,6 +1,6 @@
 <script setup>
 import {ref} from "vue";
-import Sidebar from "./components/layout/Sidebar.vue";
+import Sidebar from "./layout/Sidebar.vue";
 import {useInvoiceStore} from "./stores/store.js";
 
 const store = useInvoiceStore()

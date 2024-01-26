@@ -1,6 +1,6 @@
 <script setup>
-import CButton from "../base/CButton.vue";
-import Dropdown from "../common/Dropdown.vue";
+import CButton from "../components/base/CButton.vue";
+import Dropdown from "../components/common/Dropdown.vue";
 
 const props = defineProps({
   editScreen: Boolean,

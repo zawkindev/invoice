@@ -1,10 +1,10 @@
 <script setup>
 import {computed, ref} from "vue";
 import {useInvoiceStore} from "../stores/store";
-import NoData from "../components/layout/NoData.vue";
-import Header from "../components/layout/Header.vue";
-import WideCard from "../components/common/WideCard.vue";
+import NoData from "../layout/NoData.vue";
+import Header from "../layout/Header.vue";
 import SideModal from "../components/modal/SideModal.vue";
+import Card from "../components/common/Card.vue";
 
 const emit = defineEmits(['openSideModal', 'closeModal'])
 
@@ -39,7 +39,8 @@ function closeModal(e) {
 <template>
   <Header @open-side-modal="openSideModal" :invoice-count="invoiceCount"/>
   <div v-if="invoiceCount" class="flex flex-col w-full h-fit gap-5">
-    <WideCard
+    <Card
+        class="{cursor-pointer hover:bg-gray-100 dark:hover:bg-dark2"
         v-for="invoice in store.filterByStatus(checkedStatus)"
         :invoice-i-d="invoice.id"
     />
