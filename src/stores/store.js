@@ -136,7 +136,7 @@ export const useInvoiceStore = defineStore("invoices", () => {
         return emptyInvoice.value
       }
 
-      function getEditingInvoice(invoiceID) {
+      function getEditingInvoice() {
         editingInvoice.value = cloneDeep(invoices.value.find((item) => item.id === invoiceID));
         return editingInvoice.value
       }

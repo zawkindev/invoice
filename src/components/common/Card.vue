@@ -19,13 +19,7 @@ const route = useRoute()
 const invoice = store.getInvoice(props.invoiceID);
 const currentId = route.params.id;
 
-function deleteInvoice() {
-  console.log("deleted invoice: ", invoice.id)
-  store.deleteInvoice(invoice.id)
-  router.push({
-    name: "Home",
-  });
-}
+
 
 
 </script>
@@ -35,7 +29,6 @@ function deleteInvoice() {
       class="flex flex-row justify-between items-center w-full h-fit py-8 px-8 bg-white shadow-md rounded-lg  dark:bg-dark1"
   >
     <slot>
-
       <div class="flex justify-between w-full">
         <div class="flex flex-row w-full items-center justify-start gap-10">
           <p class="text-xl font-bold">
@@ -62,7 +55,6 @@ function deleteInvoice() {
           </div>
         </div>
       </div>
-
     </slot>
   </div>
 </template>

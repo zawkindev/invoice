@@ -4,6 +4,7 @@ import {useInvoiceStore} from "../stores/store";
 import NoData from "../layout/NoData.vue";
 import Header from "../layout/Header.vue";
 import SideModal from "../components/modal/SideModal.vue";
+import CModal from "../components/modal/CModal.vue";
 import Card from "../components/common/Card.vue";
 
 const emit = defineEmits(['openSideModal', 'closeModal'])
@@ -43,18 +44,18 @@ function closeModal(e) {
                  v-for="invoice in store.filterByStatus(checkedStatus)">
       <Card
           class="cursor-pointer hover:bg-gray-100 dark:hover:bg-dark2"
-
           :invoice-i-d="invoice.id"
       />
     </router-link>
   </div>
   <NoData v-else/>
 
-  <div
-      v-if="isSideModalOpen"
-      class="overlay fixed left-28 top-0 z-50 w-screen h-screen bg-black bg-opacity-40"
-      @click="closeModal"
-  >
-    <SideModal @close-modal="closeModal"/>
-  </div>
+<!--  <CModal v-show="isSideModalOpen" class="left-28">-->
+<!--        <SideModal @close-modal="closeModal"/>-->
+
+<!--  </CModal>-->
+<!--  -->
+  <router-view>
+
+  </router-view>
 </template>

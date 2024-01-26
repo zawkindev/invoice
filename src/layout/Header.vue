@@ -18,9 +18,10 @@ const props = defineProps({
       <p v-else class="text-xl text-[#888EB0]">No invoices</p>
     </div>
     <div class="flex flex-row h-fit items-center">
-      <Dropdown />
-
-      <CButton @click="$emit('openSideModal')" has-icon primary text="New Invoice" />
+      <Dropdown/>
+<!--      <router-link :to="{name:'NewModal'}">-->
+        <CButton has-icon primary text="New Invoice"/>
+<!--      </router-link>-->
     </div>
   </div>
 </template>

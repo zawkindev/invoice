@@ -12,20 +12,7 @@ const emit = defineEmits(["changeItems"])
 
 const store = useInvoiceStore();
 const route = useRoute()
-// const invoice = store.getEditingInvoice(props.invoiceID) || store.emptyInvoice
-// const invoice = props.inEditView ? store.editingInvoice : store.getEmptyInvoice();
-// let invoice;
-// if (props.inEditView) {
-//   if (props.inModal) {
-//     invoice = cloneDeep(store.editingInvoice)
-//   } else {
-//     // invoice = computed(()=>store.getInvoice(props.invoiceID)
-//     invoice = computed(()=>store.getInvoice(route.params.id))
-//   }
-// } else {
-//   invoice = store.emptyInvoice
-// }
-const invoiceItems = props.invoice.items;
+const invoiceItems = props.invoice?.items;
 
 function createNewItem() {
   createNewInvoiceItem(invoiceItems)
@@ -61,33 +48,36 @@ console.log(invoiceItems)
     </div>
 
     <!--    IF    -->
-    <div v-if="inModal" v-for="(item, index) in invoiceItems" class="item flex flex-row w-full gap-6">
-      <div class="flex flex-1">
-        <CInput placeholder="Item Name" :value="item.name" @input-value="(value)=>invoice.items[index].name=value"/>
-      </div>
-      <div class="flex flex-row flex-1 justify-between items-center gap-6">
-        <CInput placeholder="QTY" type="number" :value="item.qty"
-                @input-value="(value)=>invoice.items[index].qty=value"/>
-        <CInput placeholder="Price" type="number" :value="item.price"
-                @input-value="(value)=>invoice.items[index].price=value"/>
-        <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
-        <img src="../../assets/trash.svg" @click.prevent="deleteInvoiceItem(item.id, invoiceItems)">
-      </div>
-    </div>
+<!--    <div v-if="inModal" v-for="(item, index) in invoiceItems" class="item flex flex-row w-full gap-6">-->
+<!--      <div class="flex flex-1">-->
+<!--        <CInput placeholder="Item Name" :value="item.name" @input-value="(value)=>invoiceItems[index].name=value"/>-->
+<!--      </div>-->
+<!--      <div class="flex flex-row flex-1 justify-between items-center gap-6">-->
+<!--        <CInput placeholder="QTY" type="number" :value="item.qty"-->
+<!--                @input-value="(value)=>invoiceItems[index].qty=value"/>-->
+<!--        <CInput placeholder="Price" type="number" :value="item.price"-->
+<!--                @input-value="(value)=>invoiceItems[index].price=value"/>-->
+<!--        <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>-->
+<!--        <img src="../../assets/trash.svg" @click.prevent="deleteInvoiceItem(item.id, invoiceItems)">-->
+<!--      </div>-->
+<!--    </div>-->
 
     <!--    ELSE    -->
-    <div v-else v-for="item in invoiceItems" class="item flex flex-row w-full">
-      <div class="flex flex-1">
-        <p class="font-bold text-xl text-wrap">
-          {{ item.name }}
-        </p>
+    <slot>
+      <div v-for="item in invoiceItems" class="item flex flex-row w-full">
+        <div class="flex flex-1">
+          <p class="font-bold text-xl text-wrap">
+            {{ item.name }}
+          </p>
+        </div>
+        <div class="flex flex-row flex-1 justify-between items-center">
+          <p class="font-bold text-xl text-wrap">{{ item.qty }}</p>
+          <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.price) }}</p>
+          <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
+        </div>
       </div>
-      <div class="flex flex-row flex-1 justify-between items-center">
-        <p class="font-bold text-xl text-wrap">{{ item.qty }}</p>
-        <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.price) }}</p>
-        <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>
-      </div>
-    </div>
-    <CButton v-if="inModal" @click.prevent="createNewItem" edit text="Create New Item"/>
+    </slot>
+
+<!--    <CButton v-if="inModal" @click.prevent="createNewItem" edit text="Create New Item"/>-->
   </div>
 </template>

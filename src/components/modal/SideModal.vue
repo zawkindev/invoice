@@ -5,14 +5,16 @@ import DatePicker from "../common/DatePicker.vue";
 import CSelect from "../base/CSelect.vue";
 import CTable from "../base/CTable.vue";
 import CButton from "../base/CButton.vue";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+import {createNewInvoiceItem, deleteInvoiceItem, formatMoney} from "../../utils/helper.js";
 
 
 const props = defineProps(['invoiceID', 'inEditView'])
 const emit = defineEmits(["closeDeleteModal", "closeModal"]);
 const store = useInvoiceStore()
+const route = useRoute()
 
-const invoice = store.getInvoice(props.invoiceID);
+const invoice = store.getInvoice(route.params.id) || store.getEmptyInvoice();
 
 function saveInvoice() {
   invoice.status = "pending"
@@ -37,6 +39,7 @@ function closeModal() {
   invoice.status = "draft"
   emit("closeModal")
 }
+
 
 </script>
 
@@ -90,18 +93,31 @@ function closeModal() {
 
           <div id="bill-from" class="flex flex-col w-full gap-6">
             <p class="font-bold text-primary">Item list</p>
-            <CTable :invoice="invoice" @change-items="changeItems" in-modal="true" :invoiceID="invoice.id"/>
+<!--            <CTable :invoice="invoice" @change-items="changeItems" in-modal="true" :invoiceID="invoice?.id"/>-->
+<!--            <CTable>-->
+<!--              <div v-for="(item, index) in invoice?.items" class="item flex flex-row w-full gap-6">-->
+<!--                <div class="flex flex-1">-->
+<!--                  <CInput placeholder="Item Name" :value="item.name"-->
+<!--                          @input-value="(value)=>invoice.items[index].name=value"/>-->
+<!--                </div>-->
+<!--                <div class="flex flex-row flex-1 justify-between items-center gap-6">-->
+<!--                  <CInput placeholder="QTY" type="number" :value="item.qty"-->
+<!--                          @input-value="(value)=>invoice.items[index].qty=value"/>-->
+<!--                  <CInput placeholder="Price" type="number" :value="item.price"-->
+<!--                          @input-value="(value)=>invoice.items[index].price=value"/>-->
+<!--                  <p class="font-bold text-xl text-wrap">£ {{ formatMoney(item.total) }}</p>-->
+<!--                  <img src="../../assets/trash.svg" @click="deleteInvoiceItem(item.id, invoice.items)">-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </CTable>-->
           </div>
         </div>
       </div>
     </slot>
 
-    <!--  IF   -->
-
-    <!--  ELSE  -->
     <div class="buttons flex w-full content-end items-end">
       <div class="flex ml-auto gap-4 w-fit self-end">
-        <router-link :to="{name:'Invoice', params: {id: invoice.id}}">
+        <router-link :to="{name:'Invoice', params: {id: invoice?.id}}">
           <CButton class="cancel-button" @click="closeModal" edit text="Cancel"/>
         </router-link>
         <CButton type="submit" primary text="Save Changes"/>
