@@ -11,6 +11,10 @@ import CButton from "../components/base/CButton.vue";
 import Badge from "../components/common/Badge.vue";
 import SideModal from "../components/modal/SideModal.vue";
 import DeleteModal from "../components/modal/DeleteModal.vue";
+import CModal from "../components/modal/CModal.vue";
+import CInput from "../components/base/CInput.vue";
+import DatePicker from "../components/common/DatePicker.vue";
+import CSelect from "../components/base/CSelect.vue";
 
 
 const store = useInvoiceStore();
@@ -21,24 +25,16 @@ const invoice = computed(() => store.getInvoice(route.params.id))
 const isSideModalOpen = ref(false);
 const isDeleteModalOpen = ref(false);
 
-const currentComponent = ref(null);
-
-const isModalOpen = ref(false);
-
 function openSideModal() {
   isSideModalOpen.value = true;
-  isModalOpen.value = true
-  currentComponent.value = SideModal
   router.push({
     name: "SideModal",
-    params: {id: currentId},
+    params: {id: route.params.id},
   });
 }
 
 function openDeleteModal() {
-  isModalOpen.value = true
   isDeleteModalOpen.value = true
-  currentComponent.value = DeleteModal
 }
 
 function closeModal(e) {
@@ -48,24 +44,12 @@ function closeModal(e) {
     ) {
       isSideModalOpen.value = false;
       isDeleteModalOpen.value = false;
-      isModalOpen.value = false;
     }
-    if (route.fullPath.includes("/edit")) {
-      router.go(-1)
-    }
-  } else {
-    isModalOpen.value = false
+
+  } else if (route.fullPath.includes("/edit")) {
+    // router.push(id: route.params.id)
   }
 }
-
-
-function getModalClass() {
-  return {
-    'flex left-0 justify-center items-center bg-opacity-40': isDeleteModalOpen.value,
-    'left-28 bg-opacity-40': isSideModalOpen.value
-  }
-}
-
 
 function goBack() {
   router.push({
@@ -97,9 +81,6 @@ function changeItems(itemsList) {
     <!--              edit-page :invoice-i-d="invoice.id"/>-->
 
     <Card>
-      <div
-          class="flex flex-row justify-between items-center  w-full h-fit py-8 px-8 bg-white shadow-md rounded-lg  dark:bg-dark1"
-      >
         <div
             class="flex flex-row justify-between w-full gap-4 items-center"
         >
@@ -116,7 +97,6 @@ function changeItems(itemsList) {
                      text="Mark as Pending"/>
           </div>
         </div>
-      </div>
     </Card>
 
     <!--   INFO START     -->
@@ -219,12 +199,73 @@ function changeItems(itemsList) {
     <!--  INFO END    -->
 
 
-    <div v-show="isModalOpen"
-         :class="getModalClass()"
-         class="overlay fixed top-0 z-50 w-screen h-screen bg-black bg-opacity-40'">
-      <Component :is="currentComponent" @close-modal="closeModal" @delete-invoice="deleteInvoice"
-                 :invoice-i-d="invoice.id" in-edit-view="true">
-      </Component>
-    </div>
+    <CModal
+        v-show="isSideModalOpen"
+        class="left-28"
+    >
+      <SideModal @close-modal="closeModal" :invoice-i-d="invoice.id" in-edit-view="true">
+        <div class="flex flex-col h-fit gap-12 overflow-visible ">
+          <p class="text-3xl font-bold">
+            <span class="text-light3 font-bold text-3xl">#</span>{{ invoice.id }}
+          </p>
+          <div id="bill-from" class="flex flex-col w-full gap-6">
+            <p class="font-bold text-primary">Bill From</p>
+            <CInput label="Street Address" :value="invoice.seller.address"
+                    @input-value="(value)=>invoice.seller.address=value"/>
+            <div class="flex gap-6 w-full h-fit">
+              <CInput label="City" :value="invoice.seller.city"
+                      @input-value="(value)=>invoice.seller.city=value"/>
+              <CInput label="Post Code" :value="invoice.seller.postalCode"
+                      @input-value="(value)=>invoice.seller.postalCode=value"/>
+              <CInput label="Country" :value="invoice.seller.country"
+                      @input-value="(value)=>invoice.seller.country=value"/>
+            </div>
+          </div>
+
+          <div id="bill-to" class="flex flex-col w-full gap-6">
+            <p class="font-bold text-primary">Bill To</p>
+            <CInput label="Name" :value="invoice.fullName"
+                    @input-value="(value)=>invoice.fullName=value"/>
+            <CInput type="email" label="Client's email" :value="invoice.email"
+                    @input-value="(value)=>invoice.email=value"/>
+            <CInput label="Street Address" :value="invoice.buyer.address"
+                    @input-value="(value)=>invoice.buyer.address=value"/>
+            <div class="flex gap-6 w-full h-fit">
+              <CInput label="City" :value="invoice.buyer.city"
+                      @input-value="(value)=>invoice.buyer.city=value"/>
+              <CInput label="Post Code" :value="invoice.buyer.postalCode"
+                      @input-value="(value)=>invoice.buyer.postalCode=value"/>
+              <CInput label="Country" :value="invoice.buyer.country"
+                      @input-value="(value)=>invoice.buyer.country=value"/>
+            </div>
+
+            <div class="flex gap-6 w-full h-fit">
+              <DatePicker @select-date="updateDate" label="Invoice date"/>
+              <CSelect @click="(e)=>e.preventDefault()" label="Payment Terms"/>
+            </div>
+            <CInput label="Project Description" :value="invoice.serviceType"
+                    @input-value="(value)=>invoice.serviceType=value"/>
+
+
+            <div id="bill-from" class="flex flex-col w-full gap-6">
+              <p class="font-bold text-primary">Item list</p>
+              <CTable :invoice="invoice" @change-items="changeitems" in-edit-view="true" in-modal="true"
+                      :invoiceID="invoice.id"/>
+            </div>
+          </div>
+        </div>
+      </SideModal>
+    </CModal>
+    <CModal
+        v-show="isDeleteModalOpen"
+        class="flex justify-center items-center left-0"
+    >
+      <DeleteModal
+          :invoice-i-d="invoice.id"
+          @close-modal="closeModal"
+          @delete-invoice="deleteInvoice"
+      />
+    </CModal>
+
   </div>
 </template>

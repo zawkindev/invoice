@@ -39,11 +39,14 @@ function closeModal(e) {
 <template>
   <Header @open-side-modal="openSideModal" :invoice-count="invoiceCount"/>
   <div v-if="invoiceCount" class="flex flex-col w-full h-fit gap-5">
-    <Card
-        class="{cursor-pointer hover:bg-gray-100 dark:hover:bg-dark2"
-        v-for="invoice in store.filterByStatus(checkedStatus)"
-        :invoice-i-d="invoice.id"
-    />
+    <router-link :to="{name:'Invoice', params: {id: invoice.id}}"
+                 v-for="invoice in store.filterByStatus(checkedStatus)">
+      <Card
+          class="cursor-pointer hover:bg-gray-100 dark:hover:bg-dark2"
+
+          :invoice-i-d="invoice.id"
+      />
+    </router-link>
   </div>
   <NoData v-else/>
 
